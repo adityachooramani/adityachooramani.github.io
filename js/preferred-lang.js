@@ -1,1 +1,21 @@
-(()=>{var a={fallback:"http://adityachooramani.github.io/",homes:{en:"http://adityachooramani.github.io/"}};(()=>{let o=navigator.language||navigator.userLanguage;if(o in a.homes){window.location.href=a.homes[o];return}let n=o.split("-");for(let i in a.homes)if(i.indexOf(n[0])===0){window.location.href=a.homes[i];return}window.location.href=a.fallback})();})();
+(() => {
+  // ns-hugo-params:<stdin>
+  var stdin_default = { fallback: "http://localhost:46031/", homes: { en: "http://localhost:46031/" } };
+
+  // <stdin>
+  (() => {
+    const lang = navigator.language || navigator.userLanguage;
+    if (lang in stdin_default.homes) {
+      window.location.href = stdin_default.homes[lang];
+      return;
+    }
+    const codes = lang.split("-");
+    for (let lang2 in stdin_default.homes) {
+      if (lang2.indexOf(codes[0]) === 0) {
+        window.location.href = stdin_default.homes[lang2];
+        return;
+      }
+    }
+    window.location.href = stdin_default.fallback;
+  })();
+})();

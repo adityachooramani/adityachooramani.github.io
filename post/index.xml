@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on The Aditya Chooramani Blog</title>
-    <link>http://adityachooramani.github.io/post/</link>
-    <description>Recent content in Posts on The Aditya Chooramani Blog</description>
+    <title>Posts on Aditya Chooramani</title>
+    <link>http://localhost:46031/post/</link>
+    <description>Recent content in Posts on Aditya Chooramani</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>
 </copyright>
-    <lastBuildDate>Thu, 02 Oct 2025 14:16:15 +0530</lastBuildDate><atom:link href="http://adityachooramani.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Oct 2025 14:16:15 +0530</lastBuildDate><atom:link href="http://localhost:46031/post/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
 
