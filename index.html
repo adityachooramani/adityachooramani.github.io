@@ -6,7 +6,7 @@
 <title>Aditya Chooramani — Developer &amp; Security</title>
 <meta name="description" content="Aditya Chooramani — full-stack and cloud developer who builds secure systems, then breaks them to harden them. Microsoft Imagine Cup Global Semi-Finalist, Smart India Hackathon National Finalist." />
 <meta property="og:title" content="Aditya Chooramani — Build it. Break it. Harden it." />
-<meta property="og:description" content="Full-stack & cloud developer. I ship production systems on AWS and Azure, then attack them until they hold." />
+<meta property="og:description" content="A combo of WebDev, CloudDev and Security Guy." />
 <meta property="og:image" content="pfp.jpeg" />
 <link rel="icon" href="pfp.jpeg" />
 
@@ -49,14 +49,42 @@ body{
   overflow-x:hidden;
 }
 
-/* ══════ 3D layer ══════ */
-#scene{ position:fixed; inset:0; z-index:0; display:block; }
+/* ══════ black hole layer ══════ */
+#bh{
+  position:fixed; inset:0; z-index:0;
+  opacity:.55;
+  transition:opacity .2s linear;
+  will-change:opacity, transform;
+}
+#bh iframe{
+  width:100%; height:100%;
+  border:0; display:block;
+  background:transparent;
+}
+/* soft halo so the model sits in the page rather than on top of it */
+#bh::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse 55% 45% at 50% 48%, transparent 35%, rgba(5,6,9,.5) 100%);
+}
+/* starfield behind the model */
+.stars{
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(1px 1px at 12% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1px 1px at 28% 68%, rgba(157,123,255,.5), transparent),
+    radial-gradient(1px 1px at 45% 14%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 62% 78%, rgba(61,220,151,.45), transparent),
+    radial-gradient(1px 1px at 78% 32%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 88% 62%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1px 1px at 8% 88%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 1px at 68% 8%, rgba(157,123,255,.4), transparent);
+}
 .scrim{
   position:fixed; inset:0; z-index:1; pointer-events:none;
-  background:linear-gradient(180deg, rgba(5,6,9,.35) 0%, rgba(5,6,9,0) 18%, rgba(5,6,9,0) 55%, rgba(5,6,9,.85) 88%, var(--black) 100%);
+  background:linear-gradient(180deg, rgba(5,6,9,.4) 0%, rgba(5,6,9,0) 16%, rgba(5,6,9,0) 52%, rgba(5,6,9,.9) 86%, var(--black) 100%);
 }
-.page{ position:relative; z-index:2; }
 
+.page{ position:relative; z-index:2; }
 .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 26px; }
 
 /* ══════ nav ══════ */
@@ -77,7 +105,7 @@ nav{
 .nav-links a:hover,.nav-links a:focus-visible{ color:var(--green); }
 @media (max-width:660px){ .nav-links{ display:none; } }
 
-/* ══════ section rhythm (fixes the run-together) ══════ */
+/* ══════ section rhythm ══════ */
 section{
   padding-block:104px;
   scroll-margin-top:calc(var(--nav-h) + 24px);
@@ -85,8 +113,7 @@ section{
 }
 section + section::before{
   content:"";
-  position:absolute; top:0; left:26px; right:26px;
-  height:1px;
+  position:absolute; top:0; left:26px; right:26px; height:1px;
   background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
 }
 .sec-head{ margin-bottom:52px; }
@@ -108,26 +135,29 @@ h2 .pu{ color:var(--purple); }
 .note{ color:var(--grey); max-width:58ch; font-size:1rem; }
 
 /* ══════ hero ══════ */
+/* pointer-events:none lets the cursor drag the black hole THROUGH the text */
 .hero{
   min-height:100svh;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center;
-  padding:120px 26px 140px;
+  padding:120px 26px 150px;
   position:relative;
+  pointer-events:none;
 }
 .hero::before{
   content:"";
   position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-  width:min(860px,96vw); height:min(560px,70vh);
-  background:radial-gradient(ellipse at center, rgba(5,6,9,.82) 0%, rgba(5,6,9,.55) 45%, transparent 72%);
+  width:min(900px,96vw); height:min(600px,74vh);
+  background:radial-gradient(ellipse at center, rgba(5,6,9,.72) 0%, rgba(5,6,9,.42) 48%, transparent 74%);
   pointer-events:none;
 }
 .hero > *{ position:relative; }
+.hero a{ pointer-events:auto; }
 
 .status{
   display:inline-flex; align-items:center; gap:9px;
-  font-family:var(--mono); font-size:.7rem; letter-spacing:.05em;
-  color:var(--grey); background:rgba(5,6,9,.5);
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.05em;
+  color:var(--grey); background:rgba(5,6,9,.55);
   border:1px solid var(--line); border-radius:999px;
   padding:6px 15px; margin-bottom:30px;
   backdrop-filter:blur(6px);
@@ -143,7 +173,7 @@ h1{
   font-family:var(--display); font-weight:700;
   font-size:clamp(2.6rem,7vw,5rem); line-height:1.05; letter-spacing:-.045em;
   margin-bottom:26px;
-  text-shadow:0 4px 60px rgba(5,6,9,.9);
+  text-shadow:0 4px 50px rgba(5,6,9,.95);
 }
 h1 span{ display:inline-block; opacity:0; animation:rise 1s cubic-bezier(.2,.7,.2,1) forwards; }
 h1 .a{ animation-delay:.1s; }
@@ -154,6 +184,7 @@ h1 .c{ animation-delay:.46s; color:var(--green); }
 .lede{
   color:var(--grey); max-width:56ch; margin:0 auto 34px;
   opacity:0; animation:rise 1s cubic-bezier(.2,.7,.2,1) .64s forwards;
+  text-shadow:0 2px 24px rgba(5,6,9,.9);
 }
 .lede b{ color:var(--white); font-weight:500; }
 
@@ -164,7 +195,7 @@ h1 .c{ animation-delay:.46s; color:var(--green); }
   font-family:var(--mono); font-size:.75rem; letter-spacing:.03em;
   text-decoration:none; padding:11px 19px; border-radius:8px;
   border:1px solid var(--line); color:var(--grey);
-  background:rgba(5,6,9,.5); backdrop-filter:blur(6px);
+  background:rgba(5,6,9,.6); backdrop-filter:blur(6px);
   transition:.22s ease;
 }
 .btn:hover,.btn:focus-visible{ color:var(--white); border-color:var(--line-2); transform:translateY(-2px); }
@@ -174,14 +205,18 @@ h1 .c{ animation-delay:.46s; color:var(--green); }
 }
 .btn.primary:hover,.btn.primary:focus-visible{ background:#5FE9AE; border-color:#5FE9AE; color:#04120C; }
 
-.scroll-cue{
-  position:absolute; bottom:38px; left:50%; transform:translateX(-50%);
-  font-family:var(--mono); font-size:.62rem; letter-spacing:.24em; text-transform:uppercase;
-  color:var(--dim);
+.hero-hint{
+  position:absolute; bottom:74px; left:50%; transform:translateX(-50%);
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--dim); white-space:nowrap;
   opacity:0; animation:rise 1s ease 1.1s forwards;
 }
+.scroll-cue{
+  position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+  opacity:0; animation:rise 1s ease 1.25s forwards;
+}
 .scroll-cue::after{
-  content:""; display:block; width:1px; height:26px; margin:10px auto 0;
+  content:""; display:block; width:1px; height:26px;
   background:linear-gradient(180deg, var(--dim), transparent);
 }
 
@@ -203,8 +238,8 @@ h1 .c{ animation-delay:.46s; color:var(--green); }
 .card{
   position:relative; overflow:hidden;
   border:1px solid var(--line); border-radius:16px;
-  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.014));
-  backdrop-filter:blur(12px);
+  background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.016));
+  backdrop-filter:blur(14px);
   padding:30px 32px;
   transition:border-color .3s, transform .3s;
 }
@@ -246,7 +281,7 @@ h1 .c{ animation-delay:.46s; color:var(--green); }
 .stack{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
 .pane{
   border:1px solid var(--line); border-radius:14px; padding:26px;
-  background:var(--glass); backdrop-filter:blur(10px);
+  background:var(--glass); backdrop-filter:blur(12px);
 }
 .pane h4{
   font-family:var(--mono); font-size:.67rem; letter-spacing:.18em; text-transform:uppercase;
@@ -307,9 +342,11 @@ h1 .c{ animation-delay:.46s; color:var(--green); }
 
 footer{
   border-top:1px solid var(--line); padding:26px 0 46px;
-  font-family:var(--mono); font-size:.68rem; letter-spacing:.04em; color:var(--dim);
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.04em; color:var(--dim);
   display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
 }
+footer a{ color:var(--dim); text-decoration:underline; text-underline-offset:3px; }
+footer a:hover{ color:var(--grey); }
 
 /* ══════ reveal ══════ */
 .rv{ opacity:0; transform:translateY(22px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
@@ -317,7 +354,9 @@ footer{
 
 @media (prefers-reduced-motion:reduce){
   *{ animation:none !important; transition:none !important; }
-  .rv, h1 span, .lede, .hero .actions, .scroll-cue{ opacity:1 !important; transform:none !important; }
+  .rv, h1 span, .lede, .hero .actions, .hero-hint, .scroll-cue{ opacity:1 !important; transform:none !important; }
+  .scroll-cue{ transform:translateX(-50%) !important; }
+  .hero-hint{ transform:translateX(-50%) !important; }
   html{ scroll-behavior:auto; }
 }
 :focus-visible{ outline:1px solid var(--green); outline-offset:4px; border-radius:4px; }
@@ -325,7 +364,19 @@ footer{
 </head>
 <body>
 
-<canvas id="scene"></canvas>
+<div class="stars"></div>
+
+<div id="bh">
+  <iframe
+    title="Blackhole by rubykamen"
+    src="https://sketchfab.com/models/74cbeaeae2174a218fe9455d77902b5c/embed?autostart=1&amp;preload=1&amp;transparent=1&amp;ui_theme=dark&amp;ui_infos=0&amp;ui_controls=0&amp;ui_stop=0&amp;ui_watermark=0&amp;ui_watermark_link=0&amp;ui_hint=0&amp;ui_ar=0&amp;ui_help=0&amp;ui_settings=0&amp;ui_vr=0&amp;ui_fullscreen=0&amp;ui_annotations=0&amp;ui_inspector=0&amp;ui_animations=0&amp;dnt=1&amp;scrollwheel=0&amp;autospin=0.2"
+    allow="autoplay; fullscreen; xr-spatial-tracking"
+    allowfullscreen
+    loading="eager"
+    frameborder="0">
+  </iframe>
+</div>
+
 <div class="scrim"></div>
 
 <div class="page">
@@ -343,7 +394,7 @@ footer{
 </nav>
 
 <header class="hero" id="top">
-  <div class="status"><span class="dot"></span> Open to full-stack, backend &amp; security roles</div>
+  <div class="status"><span class="dot"></span> A combo of WebDev, CloudDev and Security Guy</div>
   <h1>
     <span class="a">Build it.</span>
     <span class="b">Break it.</span>
@@ -359,7 +410,8 @@ footer{
     <a class="btn" href="https://linkedin.com/in/adityachooramani" target="_blank" rel="noopener">LinkedIn</a>
     <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
   </div>
-  <div class="scroll-cue">Scroll</div>
+  <div class="hero-hint">Drag anywhere to move the black hole</div>
+  <div class="scroll-cue"></div>
 </header>
 
 <section id="creds">
@@ -568,13 +620,17 @@ footer{
 <div class="wrap">
   <footer>
     <span>© 2026 Aditya Chooramani</span>
-    <span>Hand-built · GitHub Pages</span>
+    <span>
+      Black hole model:
+      <a href="https://sketchfab.com/3d-models/blackhole-74cbeaeae2174a218fe9455d77902b5c" target="_blank" rel="noopener">Blackhole</a>
+      by <a href="https://sketchfab.com/rubykamen" target="_blank" rel="noopener">rubykamen</a>
+      (<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>)
+    </span>
   </footer>
 </div>
 
 </div><!-- /.page -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 /* ── scroll reveal ── */
 (function () {
@@ -591,180 +647,34 @@ footer{
   }
 })();
 
-/* ── black hole ── */
+/* ── black hole: fade + release as you leave the hero ── */
 (function () {
-  var canvas = document.getElementById('scene');
-  if (typeof THREE === 'undefined' || !canvas) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var bh = document.getElementById('bh');
+  if (!bh) return;
 
-  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  var BASE = 0.55;      // how faded it sits at rest
+  var ticking = false;
 
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 400);
-  camera.position.set(0, 2.6, 20);
-  camera.lookAt(0, 0, 0);
-
-  /* ---------- starfield (stays for the whole page) ---------- */
-  var STARS = 1400;
-  var sPos = new Float32Array(STARS * 3);
-  var sCol = new Float32Array(STARS * 3);
-  var GREEN = new THREE.Color(0x3DDC97);
-  var PURPLE = new THREE.Color(0x9D7BFF);
-  var WHITE = new THREE.Color(0xF4F6FA);
-
-  for (var i = 0; i < STARS; i++) {
-    var r = 40 + Math.random() * 120;
-    var th = Math.random() * Math.PI * 2;
-    var ph = Math.acos(2 * Math.random() - 1);
-    sPos[i * 3]     = r * Math.sin(ph) * Math.cos(th);
-    sPos[i * 3 + 1] = r * Math.cos(ph) * 0.55;
-    sPos[i * 3 + 2] = r * Math.sin(ph) * Math.sin(th);
-
-    var pick = Math.random();
-    var c = pick < 0.7 ? WHITE : (pick < 0.85 ? GREEN : PURPLE);
-    var f = 0.25 + Math.random() * 0.6;
-    sCol[i * 3] = c.r * f; sCol[i * 3 + 1] = c.g * f; sCol[i * 3 + 2] = c.b * f;
-  }
-  var starGeo = new THREE.BufferGeometry();
-  starGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
-  starGeo.setAttribute('color', new THREE.BufferAttribute(sCol, 3));
-  var stars = new THREE.Points(starGeo, new THREE.PointsMaterial({
-    size: 0.34, vertexColors: true, transparent: true, opacity: 0.85,
-    depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
-  }));
-  scene.add(stars);
-
-  /* ---------- black hole ---------- */
-  var hole = new THREE.Group();
-  hole.rotation.x = -1.06;           // tilt the disk toward the viewer
-  hole.rotation.z = 0.12;
-  scene.add(hole);
-
-  var R_IN = 3.4, R_OUT = 11;
-
-  // event horizon: pure black sphere, occludes the disk behind it
-  var horizon = new THREE.Mesh(
-    new THREE.SphereGeometry(3.05, 48, 48),
-    new THREE.MeshBasicMaterial({ color: 0x000000 })
-  );
-  hole.add(horizon);
-
-  // photon ring — thin bright halo hugging the horizon
-  var photon = new THREE.Mesh(
-    new THREE.RingGeometry(3.08, 3.32, 128),
-    new THREE.MeshBasicMaterial({
-      color: 0xCFF6E6, transparent: true, opacity: 0.5,
-      side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false
-    })
-  );
-  hole.add(photon);
-
-  // outer glow ring
-  var glow = new THREE.Mesh(
-    new THREE.RingGeometry(3.3, 4.6, 128),
-    new THREE.MeshBasicMaterial({
-      color: 0x9D7BFF, transparent: true, opacity: 0.09,
-      side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false
-    })
-  );
-  hole.add(glow);
-
-  // accretion disk — particles on Keplerian orbits
-  var DISK = 9000;
-  var dPos = new Float32Array(DISK * 3);
-  var dCol = new Float32Array(DISK * 3);
-  var radius = new Float32Array(DISK);
-  var angle = new Float32Array(DISK);
-  var speed = new Float32Array(DISK);
-  var height = new Float32Array(DISK);
-
-  var HOT = new THREE.Color(0xDFFBEF);   // near the horizon: hot white-green
-  var MID = new THREE.Color(0x3DDC97);   // green
-  var OUT = new THREE.Color(0x9D7BFF);   // cooler purple at the rim
-
-  for (var j = 0; j < DISK; j++) {
-    var t = Math.pow(Math.random(), 0.55);           // pack more particles inward
-    var rad = R_IN + t * (R_OUT - R_IN);
-    radius[j] = rad;
-    angle[j] = Math.random() * Math.PI * 2;
-    speed[j] = 1.35 / Math.pow(rad, 1.5);            // inner orbits move faster
-    height[j] = (Math.random() - 0.5) * (0.10 + t * 0.55);
-
-    var k = (rad - R_IN) / (R_OUT - R_IN);
-    var c = new THREE.Color();
-    if (k < 0.4) c.copy(HOT).lerp(MID, k / 0.4);
-    else c.copy(MID).lerp(OUT, (k - 0.4) / 0.6);
-    var b = 1.05 - k * 0.6;
-    dCol[j * 3] = c.r * b; dCol[j * 3 + 1] = c.g * b; dCol[j * 3 + 2] = c.b * b;
-  }
-
-  var diskGeo = new THREE.BufferGeometry();
-  diskGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
-  diskGeo.setAttribute('color', new THREE.BufferAttribute(dCol, 3));
-  var disk = new THREE.Points(diskGeo, new THREE.PointsMaterial({
-    size: 0.075, vertexColors: true, transparent: true, opacity: 0.95,
-    depthWrite: false, blending: THREE.AdditiveBlending
-  }));
-  hole.add(disk);
-
-  var dAttr = diskGeo.attributes.position;
-
-  /* ---------- interaction ---------- */
-  var px = 0, py = 0, tx = 0, ty = 0, scrollY = 0;
-  window.addEventListener('pointermove', function (e) {
-    tx = e.clientX / window.innerWidth - 0.5;
-    ty = e.clientY / window.innerHeight - 0.5;
-  }, { passive: true });
-  window.addEventListener('scroll', function () { scrollY = window.scrollY; }, { passive: true });
-
-  var clock = new THREE.Clock();
-
-  function frame() {
-    var t = clock.getElapsedTime();
+  function update() {
     var vh = window.innerHeight;
-    var p = Math.min(scrollY / vh, 1.6);   // 0 at top of hero, 1 once it's scrolled past
+    var p = Math.min(window.scrollY / (vh * 0.85), 1);   // 0 at the top, 1 once the hero is gone
+    var o = BASE * (1 - p);
 
-    px += (tx - px) * 0.05;
-    py += (ty - py) * 0.05;
+    bh.style.opacity = o.toFixed(3);
+    bh.style.transform = 'translateY(' + (-p * 12).toFixed(2) + 'vh) scale(' + (1 - p * 0.08).toFixed(3) + ')';
 
-    // orbit the disk
-    for (var i = 0; i < DISK; i++) {
-      angle[i] += speed[i];
-      var r = radius[i];
-      dPos[i * 3]     = Math.cos(angle[i]) * r;
-      dPos[i * 3 + 1] = height[i];
-      dPos[i * 3 + 2] = Math.sin(angle[i]) * r;
-    }
-    dAttr.needsUpdate = true;
+    // once it's invisible, stop it swallowing clicks and scrolls
+    bh.style.pointerEvents = o < 0.04 ? 'none' : 'auto';
+    bh.style.visibility = o < 0.01 ? 'hidden' : 'visible';
 
-    // black hole falls away and fades as you scroll past the hero
-    hole.position.y = 1.2 - p * 14;
-    hole.rotation.y = t * 0.05;
-    var fade = Math.max(0, 1 - p * 1.15);
-    disk.material.opacity = 0.95 * fade;
-    photon.material.opacity = 0.5 * fade;
-    glow.material.opacity = 0.09 * fade;
-    horizon.visible = fade > 0.02;
-
-    // slow parallax
-    camera.position.x = px * 3.2;
-    camera.position.y = 2.6 - py * 1.8;
-    camera.lookAt(0, hole.position.y * 0.35, 0);
-
-    stars.rotation.y = t * 0.006;
-
-    renderer.render(scene, camera);
-    if (!reduce) requestAnimationFrame(frame);
+    ticking = false;
   }
-  frame();
 
-  window.addEventListener('resize', function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
 })();
 </script>
 
