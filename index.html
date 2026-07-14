@@ -133,7 +133,7 @@ h2 .pu{ color:var(--purple); }
   text-align:center;
   padding:120px 26px 150px;
   position:relative;
-  pointer-events:none;                 /* lets you drag the black hole through the text */
+  pointer-events:none;               /* lets you drag the black hole through the text */
 }
 .hero::before{
   content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
@@ -267,46 +267,53 @@ h1 .c{ animation-delay:.46s; color:var(--green); }
 }
 .links a:hover,.links a:focus-visible{ border-bottom-color:var(--green); }
 
-/* ══════ tech spheres ══════ */
-.orbs{
-  position:relative;
-  border:1px solid var(--line); border-radius:16px;
-  background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.008));
-  backdrop-filter:blur(12px);
-  padding:22px 18px 16px;
-  margin-bottom:16px;
-  overflow:hidden;
-}
-#orbCanvas{ display:block; width:100%; cursor:grab; touch-action:pan-y; }
-#orbCanvas:active{ cursor:grabbing; }
-.orb-label{
-  position:absolute; pointer-events:none;
-  transform:translate(-50%,-140%);
-  font-family:var(--mono); font-size:.68rem; letter-spacing:.05em;
-  color:var(--white); background:rgba(5,6,9,.88);
-  border:1px solid var(--line-2); border-radius:6px;
-  padding:4px 9px; white-space:nowrap;
-  opacity:0; transition:opacity .16s ease;
-}
-.orb-label.on{ opacity:1; }
-.orb-hint{
-  font-family:var(--mono); font-size:.6rem; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--dim); text-align:center; margin-top:6px;
-}
-
-/* ══════ stack panes ══════ */
+/* ══════ toolkit ══════ */
 .stack{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
 .pane{
-  border:1px solid var(--line); border-radius:14px; padding:26px;
-  background:var(--glass); backdrop-filter:blur(12px);
+  border:1px solid var(--line); border-radius:16px; padding:26px 26px 28px;
+  background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+  backdrop-filter:blur(12px);
+  transition:border-color .3s;
 }
+.pane:hover{ border-color:var(--line-2); }
 .pane h4{
   font-family:var(--mono); font-size:.67rem; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--purple); font-weight:500; margin-bottom:12px;
+  color:var(--purple); font-weight:500; margin-bottom:22px;
+  display:flex; align-items:center; gap:10px;
 }
+.pane h4::after{ content:""; flex:1; height:1px; background:var(--line); }
 .pane.s h4{ color:var(--green); }
-.pane p{ color:var(--grey); font-size:.93rem; }
-@media (max-width:700px){ .stack{ grid-template-columns:1fr; } }
+
+.logos{ display:flex; flex-wrap:wrap; gap:9px; }
+
+.chip{
+  display:flex; align-items:center; gap:9px;
+  padding:7px 12px 7px 8px;
+  border:1px solid var(--line); border-radius:10px;
+  background:rgba(255,255,255,.025);
+  transition:border-color .2s, transform .2s, background .2s;
+}
+.chip:hover{ border-color:var(--line-2); background:rgba(255,255,255,.05); transform:translateY(-2px); }
+
+.chip .tile{
+  width:28px; height:28px; flex:none;
+  border-radius:7px;
+  background:#FFFFFF;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.chip .tile img{ width:19px; height:19px; display:block; }
+.chip .tile .fb{
+  font-family:var(--display); font-weight:700; font-size:.72rem;
+  color:#0B0E16; line-height:1;
+}
+.chip span.n{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.02em;
+  color:var(--grey); white-space:nowrap;
+}
+.chip:hover span.n{ color:var(--white); }
+
+@media (max-width:760px){ .stack{ grid-template-columns:1fr; } }
 
 /* ══════ about ══════ */
 .about{ display:grid; grid-template-columns:230px 1fr; gap:52px; align-items:start; }
@@ -556,29 +563,67 @@ footer a:hover{ color:var(--grey); }
       <p class="note">Same instincts, opposite direction.</p>
     </div>
 
-    <div class="orbs rv">
-      <canvas id="orbCanvas"></canvas>
-      <div class="orb-label" id="orbLabel"></div>
-      <div class="orb-hint">Drag to spin · hover a sphere</div>
-    </div>
-
     <div class="stack rv">
+
       <div class="pane">
         <h4>Frontend</h4>
-        <p>React.js · Next.js · TypeScript · JavaScript (ES6+) · Tailwind CSS · Bootstrap · WebSockets · responsive design</p>
+        <div class="logos" data-logos='[
+          ["React","dv","react/react-original.svg"],
+          ["Next.js","dv","nextjs/nextjs-original.svg"],
+          ["TypeScript","dv","typescript/typescript-original.svg"],
+          ["JavaScript","dv","javascript/javascript-original.svg"],
+          ["Tailwind","dv","tailwindcss/tailwindcss-original.svg"],
+          ["Bootstrap","dv","bootstrap/bootstrap-original.svg"],
+          ["HTML5","dv","html5/html5-original.svg"],
+          ["CSS3","dv","css3/css3-original.svg"]
+        ]'></div>
       </div>
+
       <div class="pane">
         <h4>Backend</h4>
-        <p>Node.js · Express.js · Python · Django · Flask · FastAPI · REST design · PostgreSQL · MySQL · MongoDB</p>
+        <div class="logos" data-logos='[
+          ["Node.js","dv","nodejs/nodejs-original.svg"],
+          ["Express","dv","express/express-original.svg"],
+          ["Python","dv","python/python-original.svg"],
+          ["Django","dv","django/django-plain.svg"],
+          ["Flask","dv","flask/flask-original.svg"],
+          ["FastAPI","dv","fastapi/fastapi-original.svg"],
+          ["PostgreSQL","dv","postgresql/postgresql-original.svg"],
+          ["MySQL","dv","mysql/mysql-original.svg"],
+          ["MongoDB","dv","mongodb/mongodb-original.svg"]
+        ]'></div>
       </div>
+
       <div class="pane">
         <h4>Cloud &amp; DevOps</h4>
-        <p>AWS (EC2, S3, RDS, Route 53, SNS, IAM) · Microsoft Azure · Docker · CI/CD · GitHub Actions · Nginx · Linux</p>
+        <div class="logos" data-logos='[
+          ["AWS","dv","amazonwebservices/amazonwebservices-original-wordmark.svg"],
+          ["Azure","dv","azure/azure-original.svg"],
+          ["Docker","dv","docker/docker-original.svg"],
+          ["GitHub Actions","dv","githubactions/githubactions-original.svg"],
+          ["Git","dv","git/git-original.svg"],
+          ["Nginx","dv","nginx/nginx-original.svg"],
+          ["Linux","dv","linux/linux-original.svg"],
+          ["Bash","dv","bash/bash-original.svg"]
+        ]'></div>
       </div>
+
       <div class="pane s">
         <h4>Security</h4>
-        <p>Burp Suite · OWASP Top 10 · Semgrep · Trivy · Checkov · Gitleaks · sqlmap · Nmap · Wireshark · Wazuh · MITRE ATT&amp;CK</p>
+        <div class="logos" data-logos='[
+          ["Burp Suite","si","burpsuite"],
+          ["OWASP","si","owasp"],
+          ["Kali Linux","si","kalilinux"],
+          ["Wireshark","si","wireshark"],
+          ["Nmap","si","nmap"],
+          ["Metasploit","si","metasploit"],
+          ["Semgrep","si","semgrep"],
+          ["Trivy","si","trivy"],
+          ["Snyk","si","snyk"],
+          ["MITRE ATT&CK","si","mitreattack"]
+        ]'></div>
       </div>
+
     </div>
   </div>
 </section>
@@ -647,16 +692,14 @@ footer a:hover{ color:var(--grey); }
       <a href="https://sketchfab.com/3d-models/blackhole-74cbeaeae2174a218fe9455d77902b5c" target="_blank" rel="noopener">Blackhole</a>
       by <a href="https://sketchfab.com/rubykamen" target="_blank" rel="noopener">rubykamen</a>
       (<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>)
-      · Logos by <a href="https://devicon.dev" target="_blank" rel="noopener">Devicon</a>
     </span>
   </footer>
 </div>
 
 </div><!-- /.page -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* ─────────── scroll reveal ─────────── */
+/* ── scroll reveal ── */
 (function () {
   var rv = document.querySelectorAll('.rv');
   if ('IntersectionObserver' in window) {
@@ -671,7 +714,7 @@ footer a:hover{ color:var(--grey); }
   }
 })();
 
-/* ─────────── black hole: fade + release on scroll ─────────── */
+/* ── black hole: fade + release on scroll ── */
 (function () {
   var bh = document.getElementById('bh');
   if (!bh) return;
@@ -693,252 +736,50 @@ footer a:hover{ color:var(--grey); }
   update();
 })();
 
-/* ─────────── 3D tech spheres ─────────── */
+/* ── toolkit logo chips ──
+   "dv" = Devicon (dev tools), "si" = Simple Icons (security tools).
+   If an icon 404s, the tile falls back to the tool's initial — never a broken image. */
 (function () {
-  var canvas = document.getElementById('orbCanvas');
-  var labelEl = document.getElementById('orbLabel');
-  if (!canvas || typeof THREE === 'undefined') return;
+  var DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
+  var SIMPLE  = 'https://cdn.simpleicons.org/';
 
-  var ICONS = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
+  document.querySelectorAll('.logos').forEach(function (box) {
+    var items;
+    try { items = JSON.parse(box.getAttribute('data-logos')); }
+    catch (e) { return; }
 
-  var TECH = [
-    { name: 'JavaScript', file: 'javascript/javascript-original.svg', bg: '#F7DF1E' },
-    { name: 'TypeScript', file: 'typescript/typescript-original.svg', bg: '#FFFFFF' },
-    { name: 'React',      file: 'react/react-original.svg',           bg: '#FFFFFF' },
-    { name: 'Next.js',    file: 'nextjs/nextjs-original.svg',         bg: '#FFFFFF' },
-    { name: 'Node.js',    file: 'nodejs/nodejs-original.svg',         bg: '#FFFFFF' },
-    { name: 'Python',     file: 'python/python-original.svg',         bg: '#FFFFFF' },
-    { name: 'Django',     file: 'django/django-plain.svg',            bg: '#FFFFFF' },
-    { name: 'Docker',     file: 'docker/docker-original.svg',         bg: '#FFFFFF' },
-    { name: 'AWS',        file: 'amazonwebservices/amazonwebservices-original-wordmark.svg', bg: '#FFFFFF' },
-    { name: 'Azure',      file: 'azure/azure-original.svg',           bg: '#FFFFFF' },
-    { name: 'PostgreSQL', file: 'postgresql/postgresql-original.svg', bg: '#FFFFFF' },
-    { name: 'Linux',      file: 'linux/linux-original.svg',           bg: '#FFFFFF' }
-  ];
+    items.forEach(function (it) {
+      var name = it[0], source = it[1], ref = it[2];
+      var url = source === 'dv' ? (DEVICON + ref) : (SIMPLE + ref);
 
-  var renderer, scene, camera, group, raycaster, pointer;
-  var balls = [];
-  var hovered = null;
-  var dragging = false, lastX = 0, lastY = 0, velX = 0, velY = 0;
-  var rotX = 0, rotY = 0;
-  var pointerInside = false;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var chip = document.createElement('div');
+      chip.className = 'chip';
 
-  /* --- build a sphere texture: coloured disc + logo, drawn onto a 2:1 canvas --- */
-  function makeTexture(img, bg, fallbackName) {
-    var W = 1024, H = 512;
-    var c = document.createElement('canvas');
-    c.width = W; c.height = H;
-    var ctx = c.getContext('2d');
+      var tile = document.createElement('div');
+      tile.className = 'tile';
 
-    // sphere body colour
-    ctx.fillStyle = '#0E1220';
-    ctx.fillRect(0, 0, W, H);
+      var img = document.createElement('img');
+      img.src = url;
+      img.alt = '';
+      img.loading = 'lazy';
+      img.onerror = function () {
+        tile.innerHTML = '';
+        var fb = document.createElement('span');
+        fb.className = 'fb';
+        fb.textContent = name.charAt(0).toUpperCase();
+        tile.appendChild(fb);
+      };
+      tile.appendChild(img);
 
-    // the "face" of the ball: a light disc, so dark logos stay visible
-    var cx = W / 2, cy = H / 2, r = 168;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.fillStyle = bg;
-    ctx.fill();
+      var label = document.createElement('span');
+      label.className = 'n';
+      label.textContent = name;
 
-    if (img) {
-      var s = 210;
-      ctx.drawImage(img, cx - s / 2, cy - s / 2, s, s);
-    } else {
-      // fallback: initials, if the icon failed to load
-      ctx.fillStyle = '#0E1220';
-      ctx.font = '600 92px Sora, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(fallbackName.slice(0, 2).toUpperCase(), cx, cy + 4);
-    }
-
-    var tex = new THREE.CanvasTexture(c);
-    tex.anisotropy = 4;
-    return tex;
-  }
-
-  /* fetch SVG as text -> force a concrete size -> blob -> Image (no canvas tainting) */
-  function loadIcon(url) {
-    return fetch(url, { mode: 'cors' })
-      .then(function (r) { if (!r.ok) throw new Error('404'); return r.text(); })
-      .then(function (svg) {
-        if (!/\swidth=/.test(svg)) svg = svg.replace('<svg', '<svg width="256" height="256"');
-        var blob = new Blob([svg], { type: 'image/svg+xml' });
-        var objUrl = URL.createObjectURL(blob);
-        return new Promise(function (res, rej) {
-          var img = new Image();
-          img.onload = function () { URL.revokeObjectURL(objUrl); res(img); };
-          img.onerror = function () { URL.revokeObjectURL(objUrl); rej(new Error('img')); };
-          img.src = objUrl;
-        });
-      })
-      .catch(function () { return null; });
-  }
-
-  /* --- layout --- */
-  function columns(w) { return w < 460 ? 3 : (w < 760 ? 4 : 6); }
-
-  function layout() {
-    var w = canvas.parentElement.clientWidth - 36;
-    var cols = columns(w);
-    var rows = Math.ceil(TECH.length / cols);
-    var GAP = 2.9;
-
-    balls.forEach(function (b, i) {
-      var col = i % cols, row = Math.floor(i / cols);
-      b.home.set(
-        (col - (cols - 1) / 2) * GAP,
-        -(row - (rows - 1) / 2) * GAP,
-        0
-      );
-      b.mesh.position.copy(b.home);
-    });
-
-    var halfW = (cols * GAP) / 2;
-    var halfH = (rows * GAP) / 2;
-
-    var cssH = Math.round((halfH * 2 / (halfW * 2)) * w);
-    canvas.style.height = cssH + 'px';
-    renderer.setSize(w, cssH, false);
-
-    camera.left = -halfW; camera.right = halfW;
-    camera.top = halfH; camera.bottom = -halfH;
-    camera.updateProjectionMatrix();
-  }
-
-  /* --- init --- */
-  renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  scene = new THREE.Scene();
-  camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 100);
-  camera.position.set(0, 0, 10);
-
-  scene.add(new THREE.AmbientLight(0xffffff, 0.72));
-  var key = new THREE.DirectionalLight(0xffffff, 0.85);
-  key.position.set(3, 4, 6);
-  scene.add(key);
-  var rim = new THREE.DirectionalLight(0x9D7BFF, 0.5);
-  rim.position.set(-5, -2, 3);
-  scene.add(rim);
-
-  group = new THREE.Group();
-  scene.add(group);
-
-  raycaster = new THREE.Raycaster();
-  pointer = new THREE.Vector2(-10, -10);
-
-  var geo = new THREE.SphereGeometry(1, 48, 48);
-
-  TECH.forEach(function (t, i) {
-    var mat = new THREE.MeshStandardMaterial({
-      map: makeTexture(null, t.bg, t.name),
-      roughness: 0.45,
-      metalness: 0.05
-    });
-    var mesh = new THREE.Mesh(geo, mat);
-    mesh.scale.setScalar(1);
-    group.add(mesh);
-
-    var b = {
-      mesh: mesh, mat: mat, name: t.name,
-      home: new THREE.Vector3(),
-      phase: Math.random() * Math.PI * 2,
-      spin: 0.14 + Math.random() * 0.1,
-      target: 1, current: 1
-    };
-    balls.push(b);
-
-    loadIcon(ICONS + t.file).then(function (img) {
-      if (!img) return;
-      mat.map.dispose();
-      mat.map = makeTexture(img, t.bg, t.name);
-      mat.needsUpdate = true;
+      chip.appendChild(tile);
+      chip.appendChild(label);
+      box.appendChild(chip);
     });
   });
-
-  layout();
-  window.addEventListener('resize', layout, { passive: true });
-
-  /* --- interaction --- */
-  canvas.addEventListener('pointerdown', function (e) {
-    dragging = true; lastX = e.clientX; lastY = e.clientY;
-    canvas.setPointerCapture(e.pointerId);
-  });
-  canvas.addEventListener('pointerup', function (e) {
-    dragging = false;
-    if (canvas.hasPointerCapture(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
-  });
-  canvas.addEventListener('pointerleave', function () {
-    dragging = false; pointerInside = false;
-    pointer.set(-10, -10);
-    labelEl.classList.remove('on');
-  });
-  canvas.addEventListener('pointermove', function (e) {
-    var rect = canvas.getBoundingClientRect();
-    pointerInside = true;
-    pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-
-    if (dragging) {
-      velY += (e.clientX - lastX) * 0.0045;
-      velX += (e.clientY - lastY) * 0.0045;
-      lastX = e.clientX; lastY = e.clientY;
-    }
-
-    labelEl.style.left = (e.clientX - rect.left) + 'px';
-    labelEl.style.top = (e.clientY - rect.top) + 'px';
-  });
-
-  /* --- loop --- */
-  var clock = new THREE.Clock();
-
-  function frame() {
-    var t = clock.getElapsedTime();
-
-    // group rotation with inertia
-    rotY += velY; rotX += velX;
-    velY *= 0.94; velX *= 0.94;
-    rotX = Math.max(-0.5, Math.min(0.5, rotX));
-    group.rotation.y = rotY;
-    group.rotation.x = rotX;
-
-    // hover test
-    var hit = null;
-    if (pointerInside) {
-      raycaster.setFromCamera(pointer, camera);
-      var hits = raycaster.intersectObjects(group.children, false);
-      if (hits.length) hit = hits[0].object;
-    }
-
-    hovered = null;
-    balls.forEach(function (b) {
-      var isHit = (b.mesh === hit);
-      if (isHit) hovered = b;
-      b.target = isHit ? 1.16 : 1;
-      b.current += (b.target - b.current) * 0.16;
-      b.mesh.scale.setScalar(b.current);
-
-      // idle float + slow spin
-      b.mesh.position.y = b.home.y + Math.sin(t * 0.9 + b.phase) * 0.11;
-      b.mesh.rotation.y += b.spin * 0.012;
-    });
-
-    if (hovered) {
-      labelEl.textContent = hovered.name;
-      labelEl.classList.add('on');
-      canvas.style.cursor = dragging ? 'grabbing' : 'pointer';
-    } else {
-      labelEl.classList.remove('on');
-      canvas.style.cursor = dragging ? 'grabbing' : 'grab';
-    }
-
-    renderer.render(scene, camera);
-    if (!reduce) requestAnimationFrame(frame);
-  }
-  frame();
 })();
 </script>
 
