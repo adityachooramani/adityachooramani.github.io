@@ -13,20 +13,22 @@
 <link rel="apple-touch-icon" href="pfp.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#050609; --text:#E6E9EF; --grey:#9BA3B4; --dim:#6B7385;
   --green:#3DDC97; --purple:#9D7BFF; --red:#FF4D6D; --line:rgba(255,255,255,.1);
   --board-light:#3A4152; --board-dark:#232835;
-  --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Noto Sans SC","Noto Sans JP",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --burst:polygon(50% 0%,61% 12%,75% 6%,78% 21%,93% 25%,88% 39%,100% 50%,88% 61%,93% 75%,78% 79%,75% 94%,61% 88%,50% 100%,39% 88%,25% 94%,22% 79%,7% 75%,12% 61%,0% 50%,12% 39%,7% 25%,22% 21%,25% 6%,39% 12%);
 }
 *{ box-sizing:border-box; }
 [hidden]{ display:none !important; }
 html{ scroll-behavior:smooth; }
 body{ margin:0; background:var(--bg); color:var(--text); font:17px/1.65 var(--sans); -webkit-font-smoothing:antialiased; }
+body.locked{ overflow:hidden; }
 .page{ max-width:700px; margin:0 auto; padding:64px 24px 48px; }
 a{ color:var(--green); text-decoration:underline; text-decoration-color:rgba(61,220,151,.4); text-decoration-thickness:1px; text-underline-offset:3px; }
 a:hover{ text-decoration-color:currentColor; }
@@ -35,6 +37,15 @@ h2{ font-size:1.3rem; font-weight:600; letter-spacing:-.01em; margin:3em 0 .9em;
 h3{ font-size:1.1rem; font-weight:600; margin:0; }
 p{ margin:0 0 1em; }
 .muted{ color:var(--grey); }
+
+/* language picker (serious mode only) */
+.lang-top{ position:absolute; top:16px; right:16px; display:flex; align-items:center; gap:6px; font:.78rem var(--mono); color:var(--dim); }
+.lang-sel{ font:.78rem var(--mono); color:var(--grey); background:transparent; border:1px solid var(--line); border-radius:999px; padding:6px 28px 6px 12px; cursor:pointer;
+  -webkit-appearance:none; appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--grey) 50%),linear-gradient(135deg,var(--grey) 50%,transparent 50%);
+  background-position:calc(100% - 15px) 55%,calc(100% - 10px) 55%; background-size:5px 5px; background-repeat:no-repeat; }
+.lang-sel:hover{ border-color:rgba(255,255,255,.3); color:var(--text); }
+.lang-sel option{ background:#0d0f14; color:#E6E9EF; }
 
 .who{ display:flex; align-items:center; gap:18px; margin-bottom:28px; }
 .who img{ width:76px; height:76px; border-radius:50%; object-fit:cover; object-position:center 18%; flex:none; }
@@ -103,6 +114,23 @@ footer.sfoot{ margin-top:4em; padding-top:1.2em; border-top:1px solid var(--line
 .br-toggle{ font:inherit; font-size:.9rem; background:none; border:0; padding:0; color:var(--dim); text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
 .br-toggle:hover{ color:var(--purple); }
 
+/* entry chooser */
+.chooser{ position:fixed; inset:0; z-index:100; background:rgba(5,6,9,.97); display:flex; align-items:center; justify-content:center; padding:24px 24px 70px; }
+.ch-card{ max-width:540px; text-align:center; }
+.ch-pfp{ width:72px; height:72px; border-radius:50%; object-fit:cover; object-position:center 18%; display:block; margin:0 auto 16px; }
+.chooser h2{ border:0; padding:0; margin:0 0 8px; font-size:1.6rem; }
+.chooser p{ color:var(--grey); margin:0 0 34px; }
+.ch-btns{ display:flex; gap:34px; justify-content:center; align-items:center; flex-wrap:wrap; }
+.ch-serious{ font:500 1rem var(--sans); padding:14px 24px; background:#E6E9EF; color:#050609; border:0; border-radius:6px; cursor:pointer; min-width:170px; }
+.ch-serious:hover{ background:#fff; }
+.ch-comic{ position:relative; min-width:200px; font:400 1.7rem/1 "Bangers",Impact,"Arial Black",sans-serif; letter-spacing:.05em; color:#141414; padding:20px 26px; border:4px solid #141414; cursor:pointer;
+  background:radial-gradient(rgba(0,0,0,.2) 1.4px,transparent 1.8px) 0 0/9px 9px,#ffe14d;
+  box-shadow:6px 6px 0 #ff4fa3, 6px 6px 0 3px #141414; transform:rotate(-2deg); transition:transform .15s; }
+.ch-comic:hover, .ch-comic:focus-visible{ transform:rotate(1deg) scale(1.06); }
+.ch-pow{ position:absolute; top:-30px; right:-26px; width:68px; height:68px; display:flex; align-items:center; justify-content:center; background:#ff4fa3; color:#fff; font-size:1.05rem; clip-path:var(--burst); transform:rotate(14deg); }
+.ch-lang{ position:absolute; right:18px; bottom:16px; display:flex; align-items:center; gap:8px; font:.72rem var(--mono); color:var(--dim); }
+.ch-lang .lang-sel{ font-size:.72rem; color:var(--dim); padding:4px 24px 4px 10px; }
+
 /* lightbox */
 .lb{ position:fixed; inset:0; z-index:90; background:rgba(5,6,9,.95); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .25s, visibility 0s linear .25s; }
 .lb.open{ opacity:1; visibility:visible; transition:opacity .25s; }
@@ -112,18 +140,17 @@ footer.sfoot{ margin-top:4em; padding-top:1.2em; border-top:1px solid var(--line
 .lb-close{ top:16px; right:16px; }
 .lb-prev{ left:12px; top:50%; transform:translateY(-50%); }
 .lb-next{ right:12px; top:50%; transform:translateY(-50%); }
-body.locked{ overflow:hidden; }
 
-/* ================= UNSERIOUS MODE: The Chooramani Chronicle ================= */
+/* ================= UNSERIOUS MODE ================= */
 body.brainrot{ background:#ffd9ec; }
 body.brainrot .page{ display:none; }
 #zine{
-  --ink:#141414; --paper:#fff8e1; --y:#ffe14d; --p:#ff4fa3; --c:#3fd8ff; --l:#9dff57; --o:#ff8a3d; --v:#b9a3ff;
+  --ink:#141414; --paper:#fff8e1; --y:#ffe14d; --p:#ff4fa3; --c:#3fd8ff; --l:#9dff57; --o:#ff8a3d;
   --bang:"Bangers",Impact,"Arial Black",sans-serif;
   --hand:"Permanent Marker","Comic Sans MS",cursive;
   --type:"Courier Prime","Courier New",monospace;
   color:var(--ink); font:16px/1.5 var(--type); overflow-x:clip; padding-bottom:140px;
-  background:radial-gradient(rgba(0,0,0,.07) 1.2px, transparent 1.6px) 0 0/14px 14px, linear-gradient(135deg,#ffd9ec,#d9f6ff 50%,#fff1b8);
+  background:radial-gradient(rgba(0,0,0,.07) 1.2px,transparent 1.6px) 0 0/14px 14px, linear-gradient(135deg,#ffd9ec,#d9f6ff 50%,#fff1b8);
 }
 #zine a{ color:var(--ink); text-decoration-color:var(--p); text-decoration-thickness:3px; }
 #zine h2{ font:400 clamp(1.8rem,4vw,2.6rem)/1 var(--bang); letter-spacing:.03em; margin:0 0 12px; padding:0; border:0; }
@@ -133,16 +160,16 @@ body.brainrot .page{ display:none; }
 .ticker{ background:var(--ink); color:var(--y); overflow:hidden; white-space:nowrap; font:1.15rem/1 var(--bang); letter-spacing:.07em; padding:10px 0; border-bottom:5px solid var(--p); }
 .ticker-in{ display:inline-block; padding-left:100%; animation:tick 45s linear infinite; }
 @keyframes tick{ to{ transform:translateX(-100%); } }
-
 .mast{ max-width:1200px; margin:0 auto; padding:22px 20px 12px; text-align:center; border-bottom:6px double var(--ink); }
 .mast-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px 14px; font-size:.78rem; text-transform:uppercase; border-bottom:2px solid var(--ink); padding-bottom:6px; }
 .mast-title{ font:400 clamp(2.4rem,9vw,6.4rem)/1 "UnifrakturMaguntia",Georgia,serif; margin:14px 0 6px; }
 .mast-sub{ font-style:italic; font-size:.9rem; }
 
-.zwrap{ max-width:1200px; margin:0 auto; padding:40px 20px 0; }
-.zrow{ display:grid; grid-template-columns:var(--cols,1fr); gap:38px; margin-bottom:50px; align-items:start; }
-.zstack{ display:flex; flex-direction:column; gap:38px; }
+.zwrap{ max-width:1200px; margin:0 auto; padding:50px 20px 0; }
+.zrow{ display:grid; grid-template-columns:var(--cols,1fr); gap:40px; margin-bottom:60px; align-items:start; }
+.zstack{ display:flex; flex-direction:column; gap:56px; }
 .panel{ position:relative; background:var(--pbg,var(--paper)); border:3px solid var(--ink); box-shadow:7px 7px 0 var(--ink); padding:22px; transform:rotate(var(--r,0deg)); }
+.panel::after, .ad::after{ content:""; display:block; clear:both; }
 .kicker{ display:inline-block; background:var(--kb,var(--p)); color:#fff; font:1.05rem/1 var(--bang); letter-spacing:.06em; padding:5px 10px; transform:rotate(-2deg); margin-bottom:8px; }
 .headline{ font-size:clamp(2.1rem,5vw,3.7rem) !important; line-height:.95 !important; }
 .deck{ font-style:italic; font-size:1.05rem; border-bottom:2px solid var(--ink); padding-bottom:8px; }
@@ -155,31 +182,36 @@ body.brainrot .page{ display:none; }
 .halftone::after{ content:""; position:absolute; inset:6px 6px 34px; background:radial-gradient(circle,rgba(0,0,0,.35) 35%,transparent 37%) 0 0/5px 5px; mix-blend-mode:multiply; pointer-events:none; }
 .halftone figcaption{ font:.95rem var(--hand); text-align:center; margin-top:6px; }
 
-.pol{ position:relative; background:#fff; padding:8px 8px 10px; margin:0; width:var(--w,170px); box-shadow:3px 5px 0 rgba(0,0,0,.25); transform:rotate(var(--r,-4deg)); cursor:pointer; z-index:4; transition:transform .2s; }
+/* memes: taped in, never on top of text */
+.pol{ position:relative; background:#fff; padding:8px 8px 10px; margin:0; width:var(--w,170px); max-width:100%; box-shadow:3px 5px 0 rgba(0,0,0,.25); transform:rotate(var(--r,-4deg)); cursor:pointer; z-index:4; transition:transform .2s; }
 .pol:hover{ transform:rotate(calc(var(--r,-4deg) * -1)) scale(1.06); }
 .pol img{ display:block; width:100%; height:auto; }
 .pol figcaption{ font:.95rem/1.2 var(--hand); text-align:center; margin-top:6px; }
 .pol::before{ content:""; position:absolute; top:-12px; left:50%; width:74px; height:22px; margin-left:-37px; background:rgba(255,225,77,.8); transform:rotate(-4deg); }
 .pol.wiggle{ animation:wig .5s; }
 @keyframes wig{ 25%{ transform:rotate(9deg) scale(1.1); } 50%{ transform:rotate(-9deg) scale(1.1); } 75%{ transform:rotate(4deg); } }
-.pin{ position:absolute; }
-.center{ margin:14px auto 0; }
+.pol.fr{ float:right; margin:0 -14px 12px 18px; }
+.pol.fl{ float:left; margin:0 18px 12px -14px; }
+.pol.drop{ display:block; margin:22px 0 -48px auto; }
+.pol.drop.l{ margin:22px auto -48px 0; }
+.pol.drop.c{ margin:22px auto -48px; }
+.pol.center{ display:block; margin:16px auto 0; }
 
-.note{ position:absolute; z-index:5; width:150px; padding:14px 12px; background:var(--y); font:1.05rem/1.2 var(--hand); box-shadow:2px 6px 10px rgba(0,0,0,.25); transform:rotate(var(--r,3deg)); }
+.note{ position:relative; z-index:5; width:150px; padding:14px 12px; background:var(--y); font:1.05rem/1.2 var(--hand); box-shadow:2px 6px 10px rgba(0,0,0,.25); transform:rotate(var(--r,3deg)); }
 .note.pink{ background:#ff9fcf; } .note.cyan{ background:#9feaff; } .note.lime{ background:#c8ff9f; }
+.note.top{ float:right; margin:-50px -14px 6px 18px; }
+.note.end{ display:inline-block; margin:16px 0 -24px; }
 
-.burst{ display:inline-flex; align-items:center; justify-content:center; text-align:center; width:var(--s,112px); aspect-ratio:1; padding:20px; background:var(--bb,var(--y)); font:1rem/1 var(--bang); letter-spacing:.03em; transform:rotate(var(--r,-8deg)); animation:pulse 1.4s ease-in-out infinite alternate;
-  clip-path:polygon(50% 0%,61% 12%,75% 6%,78% 21%,93% 25%,88% 39%,100% 50%,88% 61%,93% 75%,78% 79%,75% 94%,61% 88%,50% 100%,39% 88%,25% 94%,22% 79%,7% 75%,12% 61%,0% 50%,12% 39%,7% 25%,22% 21%,25% 6%,39% 12%); }
+.burst{ display:inline-flex; align-items:center; justify-content:center; text-align:center; width:var(--s,112px); aspect-ratio:1; padding:20px; background:var(--bb,var(--y)); font:1rem/1 var(--bang); letter-spacing:.03em; transform:rotate(var(--r,-8deg)); animation:pulse 1.4s ease-in-out infinite alternate; clip-path:var(--burst); }
 @keyframes pulse{ to{ scale:1.07; } }
 .bursts{ display:flex; flex-wrap:wrap; gap:4px; margin:8px 0; }
-
 .ad{ position:relative; border:3px dashed var(--ink); padding:16px; margin:0 0 20px; background:var(--ab,#fff); }
 .ad .tag{ font-weight:700; text-transform:uppercase; font-size:.85rem; }
 
 .wanted{ text-align:center; }
 .wanted .big{ font:400 clamp(3.2rem,7vw,4.8rem)/.9 var(--bang); letter-spacing:.08em; }
 .wanted .sub{ text-transform:uppercase; font-weight:700; font-size:.82rem; }
-.wanted img{ display:block; width:72%; aspect-ratio:1; object-fit:cover; object-position:center 18%; margin:12px auto; border:3px solid var(--ink); filter:sepia(.85) contrast(1.2); }
+.wanted > img{ display:block; width:72%; aspect-ratio:1; object-fit:cover; object-position:center 18%; margin:12px auto; border:3px solid var(--ink); filter:sepia(.85) contrast(1.2); }
 .ransom{ margin:8px 0 12px; line-height:2.1; }
 .ransom span{ display:inline-block; padding:2px 6px; margin:1px; font:1.4rem/1 var(--f); background:var(--b); color:var(--c); transform:rotate(var(--rr)); border:1px solid rgba(0,0,0,.15); }
 .reward{ font:2.1rem/1 var(--bang); color:#c4002b; letter-spacing:.06em; }
@@ -225,26 +257,28 @@ body.brainrot .page{ display:none; }
 #zine .status.bad{ color:#c4002b; }
 #zine .solved{ color:#333; }
 #zine .board{ border:3px solid var(--ink); border-radius:0; box-shadow:5px 5px 0 var(--ink); }
-
 .zfoot{ max-width:1200px; margin:10px auto 0; padding:22px 20px; border-top:6px double var(--ink); text-align:center; }
 
 .br-exit, .br-mute{ display:none; position:fixed; z-index:80; cursor:pointer; font:400 1.15rem/1 "Bangers",Impact,sans-serif; letter-spacing:.05em; border:3px solid #141414; box-shadow:4px 4px 0 #141414; border-radius:999px; }
 .br-exit{ right:16px; bottom:16px; background:#ffe14d; color:#141414; padding:12px 18px; }
 .br-mute{ left:16px; bottom:16px; background:#fff; color:#141414; padding:10px 14px; }
 body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
-.ovation{ position:fixed; inset:0; z-index:85; display:flex; align-items:center; justify-content:center; pointer-events:none; font:400 clamp(3rem,15vw,10rem)/1 "Bangers",Impact,sans-serif; color:#ffe14d; text-shadow:6px 6px 0 #ff4fa3, 12px 12px 0 #141414; opacity:0; }
+.ovation{ position:fixed; inset:0; z-index:85; display:flex; align-items:center; justify-content:center; pointer-events:none; font:400 clamp(3rem,15vw,10rem)/1 "Bangers",Impact,sans-serif; color:#ffe14d; text-shadow:6px 6px 0 #ff4fa3, 12px 12px 0 #141414; opacity:0; text-align:center; }
 .ovation.show{ animation:ov 1.6s ease-out forwards; }
 @keyframes ov{ 0%{opacity:0; transform:scale(.4) rotate(-10deg)} 20%{opacity:1; transform:scale(1.1) rotate(4deg)} 70%{opacity:1; transform:scale(1)} 100%{opacity:0; transform:scale(1.3)} }
 
 @media (max-width:900px){
   .zrow{ grid-template-columns:1fr !important; }
-  .pin{ position:relative !important; inset:auto !important; margin:18px auto 0; }
-  .note{ position:relative !important; inset:auto !important; display:inline-block; margin:10px 8px 0 0; }
   .halftone{ float:none; width:70%; margin:10px auto 14px; }
   #zine .play{ grid-template-columns:1fr; }
   .panel{ transform:rotate(calc(var(--r,0deg) * .5)); }
 }
-@media (max-width:560px){ .cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px){
+  .pol.fr, .pol.fl{ float:none; margin:14px auto; }
+  .note.top{ width:130px; margin:-46px -8px 6px 10px; }
+  .cards{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .ch-btns{ flex-direction:column; gap:30px; }
+}
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
   *, *::before, *::after{ animation:none !important; transition:none !important; }
@@ -256,184 +290,153 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
 <!-- ======================= SERIOUS MODE ======================= -->
 <div class="page">
 
+<div class="lang-top">
+  <span aria-hidden="true">文A</span>
+  <select class="lang-sel" id="lang-top" aria-label="Language">
+    <option value="en">English</option><option value="fr">Français</option><option value="es">Español</option>
+    <option value="zh">中文</option><option value="ja">日本語</option><option value="it">Italiano</option><option value="genz">Gen Z</option>
+  </select>
+</div>
+
 <header id="top">
   <div class="who">
     <img src="pfp.jpeg" alt="Aditya Chooramani">
     <div>
       <h1>Aditya Chooramani</h1>
-      <p class="tagline">Security, cloud and full-stack. Mathura, India.</p>
+      <p class="tagline" data-i18n="tagline">Security, cloud and full-stack. Mathura, India.</p>
     </div>
   </div>
-  <p>
-    I'm a final-year BCA student who builds web apps on AWS and Azure and then tries to break into them.
-    My team was a global semifinalist at Microsoft Imagine Cup 2026 (top 22 worldwide) and a national
-    finalist at Smart India Hackathon 2025 (top 2%). I'm looking for a full-time job in security.
-  </p>
+  <p data-i18n="intro">I'm a final-year BCA student who builds web apps on AWS and Azure and then tries to break into them. My team was a global semifinalist at Microsoft Imagine Cup 2026 (top 22 worldwide) and a national finalist at Smart India Hackathon 2025 (top 2%). I'm looking for a full-time job in security.</p>
   <p class="links">
-    <a href="mailto:adityaxchooramani@gmail.com">Email</a> /
+    <a href="mailto:adityaxchooramani@gmail.com" data-i18n="l_email">Email</a> /
     <a href="https://github.com/adityachooramani">GitHub</a> /
     <a href="https://linkedin.com/in/adityachooramani">LinkedIn</a> /
     <a href="https://dev.to/adityachooramani">dev.to</a> /
     <a href="https://x.com/aa9itya">X</a> /
-    <a href="resume.pdf">Résumé (PDF)</a>
+    <a href="resume.pdf" data-i18n="l_resume">Résumé (PDF)</a>
   </p>
   <div class="toc">
-    <a href="#projects">projects</a> · <a href="#hackathons">hackathons</a> · <a href="#writing">writing</a> ·
-    <a href="#skills">skills</a> · <a href="#about">about</a> · <a href="#photos">photos</a> · <a href="#chess">chess</a>
+    <a href="#projects" data-i18n="toc_projects">projects</a> · <a href="#hackathons" data-i18n="toc_hack">hackathons</a> ·
+    <a href="#writing" data-i18n="toc_writing">writing</a> · <a href="#skills" data-i18n="toc_skills">skills</a> ·
+    <a href="#about" data-i18n="toc_about">about</a> · <a href="#photos" data-i18n="toc_photos">photos</a> · <a href="#chess" data-i18n="toc_chess">chess</a>
   </div>
 </header>
 
-<h2 id="projects">Projects</h2>
+<h2 id="projects" data-i18n="h_projects">Projects</h2>
 
 <div class="item">
   <h3>Dustinel AI</h3>
-  <div class="meta">2026 · cloud, AI/ML · lead full-stack developer, team of 3</div>
-  <p>
-    A worker-safety app we built for Microsoft Imagine Cup. Before a shift, workers send a selfie and a
-    short video. Azure AI Vision checks for helmets and masks, GPT-4o writes safety guidance, and high-risk
-    results alert the site manager by SMS. The frontend is Next.js, the backend is Node and Express, and
-    all 18 Azure services are provisioned as infrastructure-as-code with no credentials in the codebase.
-    It has 50+ active users, validates tokens in under 100ms, and we were awarded $25k in Azure credits.
-  </p>
+  <div class="meta" data-i18n="dust_meta">2026 · cloud, AI/ML · lead full-stack developer, team of 3</div>
+  <p data-i18n="dust_p">A worker-safety app we built for Microsoft Imagine Cup. Before a shift, workers send a selfie and a short video. Azure AI Vision checks for helmets and masks, GPT-4o writes safety guidance, and high-risk results alert the site manager by SMS. The frontend is Next.js, the backend is Node and Express, and all 18 Azure services are provisioned as infrastructure-as-code with no credentials in the codebase. It has 50+ active users, validates tokens in under 100ms, and we were awarded $25k in Azure credits.</p>
   <details>
-    <summary>How a check-in works</summary>
+    <summary data-i18n="dust_sum">How a check-in works</summary>
     <ol>
-      <li>The worker signs in with a phone OTP and sends a selfie and a short video from the Next.js app.</li>
-      <li>API Management checks the JWT on every request before anything reaches the backend.</li>
-      <li>App Service (Node 22) pulls every secret from Key Vault through a Managed Identity.</li>
-      <li>AI Vision checks for helmets and masks, Cognitive Search finds the right safety documents, GPT-4o writes the guidance, and Translator and Speech deliver it in the worker's language.</li>
-      <li>High-risk results go through Service Bus as an SMS to the manager and a live alert on the dashboard.</li>
+      <li data-i18n="dust_s1">The worker signs in with a phone OTP and sends a selfie and a short video from the Next.js app.</li>
+      <li data-i18n="dust_s2">API Management checks the JWT on every request before anything reaches the backend.</li>
+      <li data-i18n="dust_s3">App Service (Node 22) pulls every secret from Key Vault through a Managed Identity.</li>
+      <li data-i18n="dust_s4">AI Vision checks for helmets and masks, Cognitive Search finds the right safety documents, GPT-4o writes the guidance, and Translator and Speech deliver it in the worker's language.</li>
+      <li data-i18n="dust_s5">High-risk results go through Service Bus as an SMS to the manager and a live alert on the dashboard.</li>
     </ol>
   </details>
   <div class="stack">Next.js, Node.js, PostgreSQL, Docker, Azure, GPT-4o</div>
-  <div class="links"><a href="https://dustinel-ai.vercel.app">Live app</a> / <a href="https://github.com/adityachooramani/Dustinel_AI">Architecture repo</a></div>
+  <div class="links"><a href="https://dustinel-ai.vercel.app" data-i18n="l_live">Live app</a> / <a href="https://github.com/adityachooramani/Dustinel_AI" data-i18n="l_arch">Architecture repo</a></div>
 </div>
 
 <div class="item">
   <h3>Break&amp;Detect</h3>
-  <div class="meta">solo · <span class="sec">security</span> · DevSecOps project</div>
-  <p>
-    A Flask API with eight security bugs added on purpose, run through a GitHub Actions pipeline
-    with Gitleaks, Semgrep, Bandit, Trivy, Checkov and OWASP ZAP. I wanted to see which bugs the
-    scanners catch and which they miss. A second branch fixes every finding.
-  </p>
+  <div class="meta" data-i18n="bd_meta">solo · <span class="sec">security</span> · DevSecOps project</div>
+  <p data-i18n="bd_p">A Flask API with eight security bugs added on purpose, run through a GitHub Actions pipeline with Gitleaks, Semgrep, Bandit, Trivy, Checkov and OWASP ZAP. I wanted to see which bugs the scanners catch and which they miss. A second branch fixes every finding.</p>
   <div class="stack">Flask, GitHub Actions, Semgrep, Trivy, OWASP ZAP, Checkov</div>
-  <div class="links"><a href="https://github.com/adityachooramani/break-and-detect">Repo</a> / <a href="https://dev.to/adityachooramani/i-put-eight-security-bugs-in-a-flask-app-on-purpose-the-robots-only-caught-some-of-them-4h55">Write-up</a></div>
+  <div class="links"><a href="https://github.com/adityachooramani/break-and-detect" data-i18n="l_repo">Repo</a> / <a href="https://dev.to/adityachooramani/i-put-eight-security-bugs-in-a-flask-app-on-purpose-the-robots-only-caught-some-of-them-4h55" data-i18n="l_writeup">Write-up</a></div>
 </div>
 
 <div class="item">
   <h3>Sentinel Eye</h3>
-  <div class="meta">Feb 2026 · cloud · lead backend and cloud developer, team of 3</div>
-  <p>
-    A geospatial analytics backend on AWS, built over two days at the Hyperspace Innovation Hackathon
-    in Ghaziabad. It serves REST endpoints over MySQL, ingests 1.6 GB of geospatial data from S3, responds
-    in under 200ms, and sends SNS alerts when infrastructure changes. IAM permissions were kept to the
-    minimum from the first commit, and API delivery came out 40% faster.
-  </p>
+  <div class="meta" data-i18n="se_meta">Feb 2026 · cloud · lead backend and cloud developer, team of 3</div>
+  <p data-i18n="se_p">A geospatial analytics backend on AWS, built over two days at the Hyperspace Innovation Hackathon in Ghaziabad. It serves REST endpoints over MySQL, ingests 1.6 GB of geospatial data from S3, responds in under 200ms, and sends SNS alerts when infrastructure changes. IAM permissions were kept to the minimum from the first commit, and API delivery came out 40% faster.</p>
   <div class="stack">Node.js, Express, MySQL, AWS S3, RDS, SNS, IAM, Docker</div>
-  <div class="links"><a href="https://github.com/adityachooramani/sentinel-eye_backend">Repo</a></div>
+  <div class="links"><a href="https://github.com/adityachooramani/sentinel-eye_backend" data-i18n="l_repo">Repo</a></div>
 </div>
 
 <div class="item">
   <h3>Sagar Sahayak</h3>
-  <div class="meta">Dec 2025 · AI/ML, backend · team of 4</div>
-  <p>
-    A maritime monitoring system for the national security track of Smart India Hackathon. I wrote the
-    Django backend, which takes in high-frequency sensor data and turns raw hardware payloads into REST
-    responses. We also trained and fine-tuned PyTorch models for underwater threat detection and image
-    enhancement, then optimized them with ONNX and OpenVINO. It held 99% uptime through field testing and
-    took our team to the national finals, in the top 2% of entries.
-  </p>
+  <div class="meta" data-i18n="ss_meta">Dec 2025 · AI/ML, backend · team of 4</div>
+  <p data-i18n="ss_p">A maritime monitoring system for the national security track of Smart India Hackathon. I wrote the Django backend, which takes in high-frequency sensor data and turns raw hardware payloads into REST responses. We also trained and fine-tuned PyTorch models for underwater threat detection and image enhancement, then optimized them with ONNX and OpenVINO. It held 99% uptime through field testing and took our team to the national finals, in the top 2% of entries.</p>
   <div class="stack">Python, Django, PostgreSQL, PyTorch, OpenCV, ONNX, OpenVINO</div>
 </div>
 
 <div class="item">
-  <h3>Falter network hardening</h3>
-  <div class="meta">open source · <span class="sec">security</span> · Freifunk Berlin</div>
-  <p>
-    A merged pull request to Freifunk Berlin's Falter packages for OpenWrt mesh nodes. It adds a
-    UCI-to-Bird2 configuration translator in C and shell, with tamper triggers and RAM-backed volatile
-    execution to reduce the attack surface on each node.
-  </p>
+  <h3 data-i18n="fa_h">Falter network hardening</h3>
+  <div class="meta" data-i18n="fa_meta">open source · <span class="sec">security</span> · Freifunk Berlin</div>
+  <p data-i18n="fa_p">A merged pull request to Freifunk Berlin's Falter packages for OpenWrt mesh nodes. It adds a UCI-to-Bird2 configuration translator in C and shell, with tamper triggers and RAM-backed volatile execution to reduce the attack surface on each node.</p>
   <div class="stack">C, Shell, OpenWrt</div>
-  <div class="links"><a href="https://github.com/freifunk-berlin/falter-packages/pull/502">Pull request</a></div>
+  <div class="links"><a href="https://github.com/freifunk-berlin/falter-packages/pull/502" data-i18n="l_pr">Pull request</a></div>
 </div>
 
-<h2 id="hackathons">Hackathons and events</h2>
+<h2 id="hackathons" data-i18n="h_hack">Hackathons and events</h2>
 
 <div class="item">
   <h3>Microsoft Imagine Cup 2026</h3>
-  <div class="meta">global semifinalist · top 22 worldwide</div>
-  <p>Our team, Sentinel Rhino, made the global semifinals with Dustinel AI.</p>
-  <div class="gallery one" data-gallery data-caption="Microsoft Imagine Cup 2026">
+  <div class="meta" data-i18n="ic_meta">global semifinalist · top 22 worldwide</div>
+  <p data-i18n="ic_p">Our team, Sentinel Rhino, made the global semifinals with Dustinel AI.</p>
+  <div class="gallery one" data-gallery>
     <button class="shot tall" type="button"><img src="media/events/imagine-cup.jpg" alt="Imagine Cup semifinalist card for team Sentinel Rhino" loading="lazy"></button>
   </div>
 </div>
 
 <div class="item">
-  <h3>AI Summit expo, Bharat Mandapam</h3>
-  <div class="meta">2026 · New Delhi</div>
-  <p>I went to meet people building in AI, from students to senior leaders at big tech companies, and to see the hardware up close.</p>
-  <div class="gallery one" data-gallery data-caption="AI Summit expo, Bharat Mandapam, 2026">
+  <h3 data-i18n="ai_h">AI Summit expo, Bharat Mandapam</h3>
+  <div class="meta" data-i18n="ai_meta">2026 · New Delhi</div>
+  <p data-i18n="ai_p">I went to meet people building in AI, from students to senior leaders at big tech companies, and to see the hardware up close.</p>
+  <div class="gallery one" data-gallery>
     <button class="shot" type="button" style="--ar:16/9"><img src="media/events/ai-summit.jpg" alt="At the AI Summit expo, Bharat Mandapam" loading="lazy"></button>
   </div>
 </div>
 
 <div class="item">
   <h3>Hyperspace Innovation Hackathon</h3>
-  <div class="meta">8 to 9 Feb 2026 · Ghaziabad</div>
-  <p>Two days of building Sentinel Eye and walking people through the demo.</p>
-  <div class="gallery two" data-gallery data-caption="Hyperspace Innovation Hackathon, Ghaziabad, February 2026">
+  <div class="meta" data-i18n="hy_meta">8 to 9 Feb 2026 · Ghaziabad</div>
+  <p data-i18n="hy_p">Two days of building Sentinel Eye and walking people through the demo.</p>
+  <div class="gallery two" data-gallery>
     <button class="shot" type="button"><img src="media/events/hyperspace-1.jpg" alt="Coding at the Hyperspace Innovation Hackathon" loading="lazy"></button>
     <button class="shot" type="button"><img src="media/events/hyperspace-2.jpg" alt="Demoing Sentinel Eye" loading="lazy"></button>
   </div>
 </div>
 
 <div class="item">
-  <h3>Smart India Hackathon 2025, Grand Finale</h3>
-  <div class="meta">8 to 9 Dec 2025 · Bengaluru · national finalist, top 2%</div>
-  <p>Two days at Nagarjuna College of Engineering and Technology, building and demoing Sagar Sahayak for the national security track.</p>
-  <div class="gallery" data-gallery data-caption="Smart India Hackathon 2025, Grand Finale, Bengaluru">
+  <h3 data-i18n="sih_h">Smart India Hackathon 2025, Grand Finale</h3>
+  <div class="meta" data-i18n="sih_meta">8 to 9 Dec 2025 · Bengaluru · national finalist, top 2%</div>
+  <p data-i18n="sih_p">Two days at Nagarjuna College of Engineering and Technology, building and demoing Sagar Sahayak for the national security track.</p>
+  <div class="gallery" data-gallery>
     <button class="shot" type="button"><img src="media/events/sih-1.jpg" alt="Team at the SIH 2025 Grand Finale" loading="lazy"></button>
     <button class="shot" type="button"><img src="media/events/sih-2.jpg" alt="Team on stage at the SIH 2025 Grand Finale" loading="lazy"></button>
     <button class="shot" type="button"><img src="media/events/sih-3.jpg" alt="Team working at the SIH 2025 Grand Finale" loading="lazy"></button>
   </div>
 </div>
 
-<h2 id="writing">Writing</h2>
+<h2 id="writing" data-i18n="h_writing">Writing</h2>
 <ul class="posts">
   <li><span class="d">11 Jul 2026</span><a href="https://dev.to/adityachooramani/i-put-eight-security-bugs-in-a-flask-app-on-purpose-the-robots-only-caught-some-of-them-4h55">I Put Eight Security Bugs in a Flask App on Purpose. The Robots Only Caught Some of Them.</a></li>
   <li><span class="d">27 Jun 2026</span><a href="https://dev.to/adityachooramani/i-tried-to-hack-my-own-hackathon-project-it-took-ten-minutes-5np">I Tried to Hack My Own Hackathon Project. It Took Ten Minutes</a></li>
 </ul>
 
-<h2 id="skills">Skills</h2>
+<h2 id="skills" data-i18n="h_skills">Skills</h2>
 <dl>
-  <dt>Security</dt><dd>Burp Suite, OWASP Top 10, Kali Linux, Wireshark, Nmap, Metasploit, Semgrep, Trivy, Snyk, MITRE ATT&amp;CK</dd>
-  <dt>Cloud and DevOps</dt><dd>AWS, Azure, Docker, GitHub Actions, Git, Nginx, Linux, Bash</dd>
-  <dt>Backend</dt><dd>Node.js, Express, Python, Django, Flask, FastAPI, PostgreSQL, MySQL, MongoDB</dd>
-  <dt>AI and machine learning</dt><dd>PyTorch, scikit-learn, OpenCV, ONNX, OpenVINO, NumPy, Pandas, web scraping, fine-tuning, GPT-4o, Azure AI Vision, RAG</dd>
-  <dt>Frontend</dt><dd>React, Next.js, TypeScript, JavaScript, Tailwind CSS, Bootstrap, HTML, CSS</dd>
+  <dt data-i18n="dt_sec">Security</dt><dd>Burp Suite, OWASP Top 10, Kali Linux, Wireshark, Nmap, Metasploit, Semgrep, Trivy, Snyk, MITRE ATT&amp;CK</dd>
+  <dt data-i18n="dt_cloud">Cloud and DevOps</dt><dd>AWS, Azure, Docker, GitHub Actions, Git, Nginx, Linux, Bash</dd>
+  <dt data-i18n="dt_back">Backend</dt><dd>Node.js, Express, Python, Django, Flask, FastAPI, PostgreSQL, MySQL, MongoDB</dd>
+  <dt data-i18n="dt_ai">AI and machine learning</dt><dd>PyTorch, scikit-learn, OpenCV, ONNX, OpenVINO, NumPy, Pandas, web scraping, fine-tuning, GPT-4o, Azure AI Vision, RAG</dd>
+  <dt data-i18n="dt_front">Frontend</dt><dd>React, Next.js, TypeScript, JavaScript, Tailwind CSS, Bootstrap, HTML, CSS</dd>
 </dl>
 
-<h2 id="about">About</h2>
-<p>
-  I've been hooked on computers since I was six, back when they were mostly for games. I got my own in
-  4th standard and spent hours clicking every button and opening every setting to see what it did. That
-  went fine until the day I deleted the C drive to free up some space. It worked, technically.
-</p>
-<p>
-  Around then I found out hackers were a thing, and I decided I'd be one. The legal kind, the one people
-  call to find the holes before someone else does. BCA was the natural way to study computers properly,
-  and I graduate in 2027.
-</p>
-<p>
-  I've completed TCM Security's Practical Ethical Hacking course and I'm working through PortSwigger's Web
-  Security Academy. Away from the keyboard I play chess, watch movies and series, and travel with a camera.
-</p>
+<h2 id="about" data-i18n="h_about">About</h2>
+<p data-i18n="ab1">I've been hooked on computers since I was six, back when they were mostly for games. I got my own in 4th standard and spent hours clicking every button and opening every setting to see what it did. That went fine until the day I deleted the C drive to free up some space. It worked, technically.</p>
+<p data-i18n="ab2">Around then I found out hackers were a thing, and I decided I'd be one. The legal kind, the one people call to find the holes before someone else does. BCA was the natural way to study computers properly, and I graduate in 2027.</p>
+<p data-i18n="ab3">I've completed TCM Security's Practical Ethical Hacking course and I'm working through PortSwigger's Web Security Academy. Away from the keyboard I play chess, watch movies and series, and travel with a camera.</p>
 
-<h2 id="photos">Photos</h2>
-<p class="muted">Some photos I took around India.</p>
-<div class="gallery photos" data-gallery data-caption="Photos I took around India">
+<h2 id="photos" data-i18n="h_photos">Photos</h2>
+<p class="muted" data-i18n="ph_p">Some photos I took around India.</p>
+<div class="gallery photos" data-gallery data-cap-key="cap_photos">
   <button class="shot" type="button"><img src="media/travel/adiyogi.jpg" alt="Adiyogi statue, Coimbatore" loading="lazy"></button>
   <button class="shot" type="button"><img src="media/travel/aarti.jpg" alt="Evening aarti at Vishram Ghat, Mathura" loading="lazy"></button>
   <button class="shot" type="button"><img src="media/travel/red-fort.jpg" alt="Red Fort, Delhi" loading="lazy"></button>
@@ -442,17 +445,17 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
   <button class="shot" type="button"><img src="media/travel/eagle-mural.jpg" alt="Eagle mural at Bharat Mandapam" loading="lazy"></button>
 </div>
 
-<h2 id="chess">Mate in two</h2>
+<h2 id="chess" data-i18n="h_chess">Mate in two</h2>
 <div id="chess-home">
   <div class="play">
     <div class="board" id="board" aria-label="Chess board"></div>
     <div>
-      <p class="muted">A new puzzle every visit. Tap a piece, then tap where it should go.</p>
+      <p class="muted" data-i18n="ch_p">A new puzzle every visit. Tap a piece, then tap where it should go.</p>
       <div class="status" id="chess-status" aria-live="polite">Setting up the board…</div>
       <div class="pbtns">
-        <button class="pbtn" id="chess-hint" type="button">Hint</button>
-        <button class="pbtn" id="chess-reset" type="button">Reset</button>
-        <button class="pbtn" id="chess-new" type="button">New puzzle</button>
+        <button class="pbtn" id="chess-hint" type="button" data-i18n="b_hint">Hint</button>
+        <button class="pbtn" id="chess-reset" type="button" data-i18n="b_reset">Reset</button>
+        <button class="pbtn" id="chess-new" type="button" data-i18n="b_new">New puzzle</button>
       </div>
       <div class="solved" id="chess-solved"></div>
     </div>
@@ -461,7 +464,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
 
 <footer class="sfoot">
   <span>© 2026 Aditya Chooramani. <a href="mailto:adityaxchooramani@gmail.com">adityaxchooramani@gmail.com</a></span>
-  <button class="br-toggle" type="button" data-br-toggle>Unserious mode</button>
+  <button class="br-toggle" type="button" data-br-toggle data-i18n="f_toggle">Unserious mode</button>
 </footer>
 </div>
 
@@ -483,6 +486,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
 
     <div class="zrow" style="--cols:2fr 1fr">
       <article class="panel">
+        <div class="note top" style="--r:5deg">it works on my machine</div>
         <span class="kicker">EXCLUSIVE</span>
         <h2 class="headline">Local boy deletes own C drive, calls it "disk cleanup"</h2>
         <p class="deck">Experts say this is how every hacker origin story starts.</p>
@@ -490,8 +494,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
         <p><b>MATHURA.</b> Witnesses report that a 4th standard student, handed his very first computer, clicked every single button on it "just to see what happens." Things went fine until he deleted the C drive to free up space. Sources confirm: space was freed.</p>
         <p>Years later the same boy, Aditya Chooramani, builds apps on AWS and Azure and then breaks into them on purpose. Police were called. Police said that is literally what security people do, and asked for his résumé.</p>
         <a class="btn-z" href="resume.pdf">READ HIS RAP SHEET (RÉSUMÉ)</a>
-        <figure class="pol pin" style="--r:-7deg; --w:170px; bottom:-60px; left:-34px"><img src="media/memes/forgor.jpg" alt="" loading="lazy"><figcaption>artist's impression of the incident</figcaption></figure>
-        <div class="note" style="--r:5deg; top:-22px; right:28%">it works on my machine</div>
+        <figure class="pol drop l" style="--r:-6deg; --w:170px"><img src="media/memes/forgor.jpg" alt="" loading="lazy"><figcaption>artist's impression of the incident</figcaption></figure>
       </article>
 
       <aside class="panel wanted" style="--r:1.5deg; --pbg:#f3dfb0">
@@ -503,12 +506,13 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
         <div class="reward">REWARD</div>
         <p>One (1) full-time security job.<br>Serious offers only, unlike this page.</p>
         <a class="btn-z" href="mailto:adityaxchooramani@gmail.com">REPORT A SIGHTING</a>
-        <figure class="pol pin" style="--r:8deg; --w:150px; top:-40px; right:-30px"><img src="media/memes/lion-struggling.jpg" alt="" loading="lazy"><figcaption>him, job hunting</figcaption></figure>
+        <figure class="pol drop c" style="--r:7deg; --w:150px"><img src="media/memes/lion-struggling.jpg" alt="" loading="lazy"><figcaption>him, job hunting</figcaption></figure>
       </aside>
     </div>
 
     <div class="zrow" style="--cols:7fr 5fr">
       <section class="panel" style="--r:-.6deg">
+        <div class="note top pink" style="--r:-6deg">do NOT click the capybara</div>
         <span class="kicker" style="--kb:#141414">ADVERTISEMENT</span>
         <h2>As seen on TV <small style="font-size:.5em">(it was not on TV)</small></h2>
 
@@ -539,6 +543,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
         </div>
 
         <div class="ad" style="--ab:#d9ffbf">
+          <figure class="pol fr" style="--r:5deg; --w:150px"><img src="media/memes/capybara.jpg" alt="" loading="lazy" data-capy><figcaption>lead backend engineer, hard at work</figcaption></figure>
           <div class="tag">Satellite data go brrr</div>
           <h3>Sentinel Eye</h3>
           <p>1.6 GB of maps, served in under 200ms. Built in two days at a hackathon in Ghaziabad, powered by chai and questionable sleep.</p>
@@ -548,7 +553,6 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
             <span class="burst" style="--bb:#ff9fcf; --r:-3deg">40% FASTER!</span>
           </div>
           <a class="btn-z" href="https://github.com/adityachooramani/sentinel-eye_backend">INSPECT THE GOODS</a>
-          <figure class="pol pin" style="--r:6deg; --w:160px; top:-30px; right:-46px"><img src="media/memes/capybara.jpg" alt="" loading="lazy" data-capy><figcaption>lead backend engineer, hard at work</figcaption></figure>
         </div>
 
         <div class="ad" style="--ab:#ffd0e8">
@@ -567,7 +571,6 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
           <p>Merged into a real open-source project in Germany. The maintainers reviewed it and did not laugh. Wunderbar.</p>
           <a class="btn-z" href="https://github.com/freifunk-berlin/falter-packages/pull/502">SEE THE PROOF</a>
         </div>
-        <div class="note pink" style="--r:-6deg; top:38%; left:-40px">do NOT click the capybara</div>
       </section>
 
       <div class="zstack">
@@ -585,7 +588,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
             <div class="nrow thick"><b>Sleep</b><b>3%</b></div>
             <p class="fine" style="margin-top:6px">*Percent Daily Values are completely made up. Contains: bugs (fixed). May contain traces of Stack Overflow.</p>
           </div>
-          <figure class="pol pin" style="--r:-9deg; --w:150px; bottom:-56px; right:-24px"><img src="media/memes/lie-to-yourself.jpg" alt="" loading="lazy"><figcaption>me reading this label</figcaption></figure>
+          <figure class="pol drop" style="--r:-8deg; --w:150px"><img src="media/memes/lie-to-yourself.jpg" alt="" loading="lazy"><figcaption>me reading this label</figcaption></figure>
         </aside>
 
         <aside class="panel" style="--r:-1.5deg; --pbg:#e3d7ff">
@@ -621,7 +624,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
           <button class="shot postcard" type="button" style="--r:4deg"><img src="media/events/hyperspace-1.jpg" alt="Hyperspace Hackathon" loading="lazy"></button>
         </div>
         <p class="fine" style="margin-top:10px">Team photos, taken before the sleep debt hit.</p>
-        <figure class="pol pin" style="--r:7deg; --w:160px; top:-44px; right:-26px"><img src="media/memes/rock-on.jpg" alt="" loading="lazy"><figcaption>the team after making nationals</figcaption></figure>
+        <figure class="pol drop" style="--r:6deg; --w:160px"><img src="media/memes/rock-on.jpg" alt="" loading="lazy"><figcaption>the team after making nationals</figcaption></figure>
       </section>
 
       <div class="zstack">
@@ -640,18 +643,18 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
           <div class="cls"><b>SERVICES:</b> Will hack your app (legally). Will not fix your Wi-Fi.</div>
           <div class="cls"><b>SEEKING:</b> A team that lets me break things on purpose. Write to <a href="mailto:adityaxchooramani@gmail.com">adityaxchooramani@gmail.com</a>.</div>
           <div class="cls"><b>FREE:</b> Unsolicited security advice. Rotate your keys.</div>
-          <figure class="pol pin" style="--r:7deg; --w:150px; bottom:-60px; right:-20px"><img src="media/memes/remebar.jpg" alt="" loading="lazy"><figcaption>me, remembering my own password</figcaption></figure>
+          <figure class="pol drop" style="--r:7deg; --w:150px"><img src="media/memes/remebar.jpg" alt="" loading="lazy"><figcaption>me, remembering my own password</figcaption></figure>
         </section>
       </div>
     </div>
 
     <div class="zrow" style="--cols:7fr 4fr">
       <section class="panel" style="--r:.5deg; --pbg:#bff3ff">
+        <div class="note top cyan" style="--r:-4deg">hint: the hint button exists</div>
         <span class="kicker">PUZZLE CORNER</span>
         <h2>Mate in two. Losers buy chai.</h2>
         <div id="z-chess"></div>
-        <figure class="pol pin" style="--r:-8deg; --w:150px; bottom:-50px; left:-30px"><img src="media/memes/cat-clap.jpg" alt="" loading="lazy"><figcaption>you, after solving it</figcaption></figure>
-        <div class="note cyan" style="--r:-4deg; top:-22px; right:24px">hint: the hint button exists</div>
+        <figure class="pol drop l" style="--r:-8deg; --w:150px"><img src="media/memes/cat-clap.jpg" alt="" loading="lazy"><figcaption>you, after solving it</figcaption></figure>
       </section>
 
       <div class="zstack">
@@ -661,7 +664,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
           <p class="track">"Monkeys Spinning Monkeys"<br>Kevin MacLeod</p>
           <button type="button" id="z-play">PLAY</button>
           <p class="credit">Music: "Monkeys Spinning Monkeys" by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
-          <figure class="pol pin" style="--r:9deg; --w:140px; top:-40px; right:-28px"><img src="media/memes/dog-headphones.jpg" alt="" loading="lazy"><figcaption>our resident DJ</figcaption></figure>
+          <figure class="pol drop c" style="--r:8deg; --w:140px"><img src="media/memes/dog-headphones.jpg" alt="" loading="lazy"><figcaption>our resident DJ</figcaption></figure>
         </aside>
 
         <aside class="panel coupon" style="--r:2deg; --pbg:#c8ff9f">
@@ -676,6 +679,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
 
     <div class="zrow">
       <section class="panel" style="--pbg:#ffd9a8">
+        <div class="note top lime" style="--r:6deg">wish you were here (to hire me)</div>
         <span class="kicker" style="--kb:#0a7a40">TRAVEL SUPPLEMENT</span>
         <h2>Greetings from India</h2>
         <div class="cards" data-gallery data-caption="Greetings from India">
@@ -687,7 +691,6 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
           <button class="shot postcard" type="button" style="--r:2deg"><img src="media/travel/eagle-mural.jpg" alt="Eagle mural" loading="lazy"></button>
         </div>
         <p class="fine" style="margin-top:14px">Photos by the suspect. No robot dogs were harmed.</p>
-        <div class="note lime" style="--r:6deg; top:-24px; right:40px">wish you were here (to hire me)</div>
       </section>
     </div>
 
@@ -704,7 +707,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
         <h2>The staff</h2>
         <p><b>Editor in chief:</b> Aditya<br><b>Head of security:</b> Aditya<br><b>Cloud department:</b> Aditya<br><b>Chess correspondent:</b> Aditya<br><b>Senior engineer:</b> the capybara</p>
         <p>Got a tip? <a href="mailto:adityaxchooramani@gmail.com">adityaxchooramani@gmail.com</a><br><a href="https://github.com/adityachooramani">GitHub</a> / <a href="https://linkedin.com/in/adityachooramani">LinkedIn</a> / <a href="https://dev.to/adityachooramani">dev.to</a></p>
-        <div class="note pink" style="--r:-5deg; bottom:-26px; right:20px">chai count today: 4</div>
+        <div class="note end pink" style="--r:-5deg">chai count today: 4</div>
       </aside>
     </div>
   </div>
@@ -713,6 +716,25 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
     <p>THE CHOORAMANI CHRONICLE. Printed on 100% recycled bugs.</p>
     <button class="btn-z" type="button" data-br-toggle>GO BACK TO BEING EMPLOYABLE</button>
   </footer>
+</div>
+
+<!-- ======================= ENTRY CHOOSER ======================= -->
+<div class="chooser" id="chooser" role="dialog" aria-modal="true" aria-labelledby="ch-title" hidden>
+  <div class="ch-card">
+    <img src="pfp.jpeg" alt="" class="ch-pfp">
+    <h2 id="ch-title" data-i18n="m_title">How do you want to see this site?</h2>
+    <p data-i18n="m_sub">You can switch any time from the bottom of the page.</p>
+    <div class="ch-btns">
+      <button type="button" class="ch-serious" data-choose="serious" data-i18n="m_serious">Serious mode</button>
+      <button type="button" class="ch-comic" data-choose="unserious"><span class="ch-pow" aria-hidden="true">POW!</span><span data-i18n="m_unserious">Unserious mode</span></button>
+    </div>
+  </div>
+  <label class="ch-lang"><span data-i18n="m_lang">Language</span>
+    <select class="lang-sel" id="lang-menu">
+      <option value="en">English</option><option value="fr">Français</option><option value="es">Español</option>
+      <option value="zh">中文</option><option value="ja">日本語</option><option value="it">Italiano</option><option value="genz">Gen Z</option>
+    </select>
+  </label>
 </div>
 
 <audio id="zsong" src="media/audio/song.mp3" loop preload="none"></audio>
@@ -729,9 +751,11 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
 <button class="br-mute" type="button">SOUND: ON</button>
 <div class="ovation" aria-hidden="true"></div>
 
+<script src="lang.js"></script>
 <script>
 (function () {
   var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var BR = { on: false, muted: false, ctx: null };
 
   function store(k, v) {
     try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; }
@@ -742,7 +766,58 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
   }
   function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
 
-  /* ---------- images: if photo.jpg is missing, try .jpeg, .JPG, .png, .webp, .jpg.jpeg ---------- */
+  /* ---------- languages ---------- */
+  var I18N = window.I18N || {};
+  var LANG_TAGS = { en: 'en', fr: 'fr', es: 'es', it: 'it', zh: 'zh-Hans', ja: 'ja', genz: 'en' };
+  var DYN = {
+    c_white: 'White', c_black: 'Black',
+    c_tomove: '{side} to move. Checkmate in two.',
+    c_good: 'Good move. Your opponent replies…',
+    c_wrong: 'Your opponent slips away. Try a different first move.',
+    c_stale: 'That is stalemate. Try a different first move.',
+    c_m1: 'Now finish it. Checkmate in one.',
+    c_notmate: 'Not mate yet. Try again.',
+    c_win: 'Checkmate. Nicely done.',
+    c_hint1: 'Hint: start with the highlighted piece.',
+    c_hint2: 'Hint: the highlighted piece delivers mate.',
+    c_loading: 'Setting up the board…',
+    c_solved: 'Solved on this device: {n}',
+    c_nopuzzle: 'No puzzle could be loaded. Refresh to try again.',
+    c_fail: 'The board could not load. Refresh to try again.',
+    cap_photos: 'Photos I took around India'
+  };
+  var EN = {};
+  var i18nEls = document.querySelectorAll('[data-i18n]');
+  i18nEls.forEach(function (el) { EN[el.getAttribute('data-i18n')] = el.innerHTML; });
+  var lang = 'en';
+  var refreshChess = function () {};
+
+  function T(key, vars) {
+    var L = BR.on ? 'en' : lang;
+    var d = I18N[L] || {};
+    var s = (L !== 'en' && d[key] != null) ? d[key] : (EN[key] != null ? EN[key] : (DYN[key] != null ? DYN[key] : key));
+    if (vars) Object.keys(vars).forEach(function (k) { s = s.split('{' + k + '}').join(vars[k]); });
+    return s;
+  }
+  var langSelects = document.querySelectorAll('.lang-sel');
+  var exitBtn = document.querySelector('.br-exit');
+  function applyLang(l) {
+    lang = (l === 'en' || I18N[l]) ? l : 'en';
+    i18nEls.forEach(function (el) {
+      var k = el.getAttribute('data-i18n');
+      var eff = (BR.on && el.closest('.play')) ? 'en' : lang;
+      var d = I18N[eff];
+      el.innerHTML = (eff !== 'en' && d && d[k] != null) ? d[k] : EN[k];
+    });
+    document.documentElement.lang = LANG_TAGS[lang] || 'en';
+    langSelects.forEach(function (s) { s.value = lang; });
+    exitBtn.textContent = lang === 'genz' ? 'LOCK BACK IN' : 'BACK TO SERIOUS';
+    store('lang', lang);
+    refreshChess();
+  }
+  langSelects.forEach(function (s) { s.addEventListener('change', function () { applyLang(s.value); }); });
+
+  /* ---------- images: if photo.jpg is missing, try other extensions ---------- */
   var EXTS = ['.jpg', '.jpeg', '.JPG', '.JPEG', '.png', '.webp', '.jpg.jpeg', '.jpeg.jpg'];
   function heal(img, onFail) {
     var src = img.getAttribute('src') || '';
@@ -772,12 +847,13 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
       var src = group[idx].querySelector('img');
       img.src = src.currentSrc || src.src;
       img.alt = src.alt;
-      cap.textContent = caption + (group.length > 1 ? ' · ' + (idx + 1) + ' of ' + group.length : '');
+      cap.textContent = caption + (group.length > 1 ? ' · ' + (idx + 1) + ' / ' + group.length : '');
     }
     function open(shot) {
       var box = shot.closest('[data-gallery]');
       group = Array.prototype.filter.call(box.querySelectorAll('.shot'), function (s) { return s.style.display !== 'none'; });
-      caption = box.getAttribute('data-caption') || '';
+      var item = box.closest('.item');
+      caption = box.getAttribute('data-caption') || (box.dataset.capKey ? T(box.dataset.capKey) : '') || (item ? item.querySelector('h3').textContent : '');
       prev.style.display = next.style.display = group.length > 1 ? '' : 'none';
       lastFocus = document.activeElement;
       show(group.indexOf(shot));
@@ -825,7 +901,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
     img.src = 'pfp.jpeg';
   })();
 
-  /* ---------- live dev.to posts (serious mode list, textContent only) ---------- */
+  /* ---------- live dev.to posts (textContent only) ---------- */
   (function () {
     var box = document.querySelector('.posts');
     if (!box || !window.fetch) return;
@@ -852,7 +928,6 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
   })();
 
   /* ---------- unserious mode ---------- */
-  var BR = { on: false, muted: false, ctx: null };
   var zine = document.getElementById('zine');
   var song = document.getElementById('zsong');
   var radio = document.querySelector('.radio');
@@ -904,13 +979,12 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
     void ovationEl.offsetWidth;
     ovationEl.classList.add('show');
   }
-
   function loadZineFonts() {
     if (fontsLoaded) return;
     fontsLoaded = true;
     var l = document.createElement('link');
     l.rel = 'stylesheet';
-    l.href = 'https://fonts.googleapis.com/css2?family=Bangers&family=Courier+Prime:wght@400;700&family=Permanent+Marker&family=UnifrakturMaguntia&display=swap';
+    l.href = 'https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Permanent+Marker&family=UnifrakturMaguntia&display=swap';
     document.head.appendChild(l);
   }
   function ransom() {
@@ -935,11 +1009,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
       });
     });
   }
-
-  function setPlaying(on) {
-    radio.classList.toggle('playing', on);
-    playBtn.textContent = on ? 'PAUSE' : 'PLAY';
-  }
+  function setPlaying(on) { radio.classList.toggle('playing', on); playBtn.textContent = on ? 'PAUSE' : 'PLAY'; }
   function playSong() {
     song.volume = 0.45;
     song.muted = BR.muted;
@@ -947,13 +1017,8 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
     setPlaying(true);
     if (p && p.catch) p.catch(function () { setPlaying(false); });
   }
-  song.addEventListener('error', function () {
-    setPlaying(false);
-    trackEl.textContent = 'No song yet. Add media/audio/song.mp3';
-  });
-  playBtn.addEventListener('click', function () {
-    if (song.paused) playSong(); else { song.pause(); setPlaying(false); }
-  });
+  song.addEventListener('error', function () { setPlaying(false); trackEl.textContent = 'No song yet. Add media/audio/song.mp3'; });
+  playBtn.addEventListener('click', function () { if (song.paused) playSong(); else { song.pause(); setPlaying(false); } });
 
   function setBrainrot(on) {
     if (on === BR.on) return;
@@ -962,6 +1027,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
     document.body.classList.toggle('brainrot', on);
     zine.hidden = !on;
     (on ? zChess : chessHome).appendChild(playEl);
+    applyLang(lang);
     window.scrollTo(0, 0);
     if (on) { sfx('on'); playSong(); }
     else { song.pause(); setPlaying(false); }
@@ -1013,15 +1079,22 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
     };
     var Chess = null, game = null, startFen = '', solver = 'w', key = null;
     var phase = 0, sel = null, last = null, hintSq = null, busy = true, squares = {};
+    var lastStatus = { key: 'c_loading' };
 
-    function setStatus(text, tone) { statusEl.textContent = text; statusEl.className = 'status' + (tone ? ' ' + tone : ''); }
-    function say(text, tone, kind) { if (BR.on && kind && TRASH[kind]) text = pick(TRASH[kind]); setStatus(text, tone); }
-    function sideName() { return solver === 'w' ? 'White' : 'Black'; }
-    function oppName() { return solver === 'w' ? 'Black' : 'White'; }
-    function startText() { return sideName() + ' to move. Checkmate in two.'; }
-    function mateInOneText() { return BR.on ? 'finish him. mate in one.' : 'Now finish it. Checkmate in one.'; }
+    function status(k, tone, kind, vars) {
+      lastStatus = { key: k, tone: tone, kind: kind, vars: vars };
+      var text = (BR.on && kind && TRASH[kind]) ? pick(TRASH[kind]) : T(k, vars);
+      statusEl.textContent = text;
+      statusEl.className = 'status' + (tone ? ' ' + tone : '');
+    }
+    function startStatus() { status('c_tomove', null, null, { side: T(solver === 'w' ? 'c_white' : 'c_black') }); }
+    function showSolved() { var n = solvedCount(); solvedEl.textContent = n ? T('c_solved', { n: n }) : ''; }
+    refreshChess = function () {
+      if (lastStatus.key === 'c_tomove') startStatus();
+      else status(lastStatus.key, lastStatus.tone, null, lastStatus.vars);
+      showSolved();
+    };
     function solvedCount() { return parseInt(store('chess-solved'), 10) || 0; }
-    function showSolved() { var n = solvedCount(); solvedEl.textContent = n ? 'Solved on this device: ' + n : ''; }
 
     function transformFen(fen, t) {
       var parts = fen.split(' ');
@@ -1120,7 +1193,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
       phase = 'done'; busy = false;
       store('chess-solved', String(solvedCount() + 1));
       showSolved(); render();
-      say('Checkmate. Nicely done.', 'good', 'win');
+      status('c_win', 'good', 'win');
       sfx('win'); ovation();
     }
     function play(m) {
@@ -1132,20 +1205,20 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
         if (res.mate) { win(); return; }
         busy = true;
         if (res.ok) {
-          say('Good move. ' + oppName() + ' replies…', 'good', 'good');
+          status('c_good', 'good', 'good');
           setTimeout(function () {
             var caps = res.replies.filter(function (r) { return r.captured; });
             var r = pick(caps.length ? caps : res.replies);
             game.move(asObj(r)); last = [r.from, r.to];
             phase = 2; busy = false; render();
-            setStatus(mateInOneText());
+            status('c_m1');
           }, 700);
         } else {
-          say(res.refute ? oppName() + ' slips away. Try a different first move.' : 'That is stalemate. Try a different first move.', 'bad', 'wrong');
+          status(res.refute ? 'c_wrong' : 'c_stale', 'bad', 'wrong');
           sfx('wrong');
           setTimeout(function () {
             if (res.refute) { game.move(asObj(res.refute)); last = [res.refute.from, res.refute.to]; render(); }
-            setTimeout(function () { reset(); setStatus(startText()); }, 1400);
+            setTimeout(function () { reset(); startStatus(); }, 1400);
           }, 650);
         }
       } else if (phase === 2) {
@@ -1153,9 +1226,9 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
         game.move(o); last = [o.from, o.to]; render();
         if (game.isCheckmate()) { win(); return; }
         busy = true;
-        say('Not mate yet. Try again.', 'bad', 'notMate');
+        status('c_notmate', 'bad', 'notMate');
         sfx('wrong');
-        setTimeout(function () { game.undo(); last = before; busy = false; render(); setStatus(mateInOneText()); }, 1100);
+        setTimeout(function () { game.undo(); last = before; busy = false; render(); status('c_m1'); }, 1100);
       }
     }
     function onSquare(sq) {
@@ -1171,7 +1244,7 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
     }
     function newPuzzle() {
       busy = true;
-      setStatus('Setting up the board…');
+      status('c_loading');
       var lastId = store('chess-last'), ids = [];
       for (var i = 0; i < BANK.length; i++) for (var t = 0; t < 4; t++) ids.push([i, t]);
       shuffle(ids);
@@ -1187,26 +1260,28 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
           if (!good) { k = await searchKey(g); if (!k) continue; }
           startFen = fen; solver = g.turn(); key = k;
           store('chess-last', bi + ':' + tr);
-          build(solver === 'b'); reset(); setStatus(startText());
+          build(solver === 'b'); reset(); startStatus();
           return;
         }
         busy = false;
-        setStatus('No puzzle could be loaded. Refresh to try again.', 'bad');
+        status('c_nopuzzle', 'bad');
       })();
     }
     document.getElementById('chess-hint').addEventListener('click', function () {
       if (busy || !game) return;
       if (phase === 1 && key) {
         hintSq = key.from;
-        setStatus(BR.on ? 'psst. that piece. trust.' : 'Hint: start with the highlighted piece.');
+        if (BR.on) { statusEl.textContent = 'psst. that piece. trust.'; statusEl.className = 'status'; }
+        else status('c_hint1');
       } else if (phase === 2) {
         var ms = game.moves({ verbose: true });
         for (var i = 0; i < ms.length; i++) { game.move(asObj(ms[i])); var mate = game.isCheckmate(); game.undo(); if (mate) { hintSq = ms[i].from; break; } }
-        setStatus(BR.on ? 'this piece ends it. go.' : 'Hint: the highlighted piece delivers mate.');
+        if (BR.on) { statusEl.textContent = 'this piece ends it. go.'; statusEl.className = 'status'; }
+        else status('c_hint2');
       }
       render();
     });
-    document.getElementById('chess-reset').addEventListener('click', function () { if (busy || !game) return; reset(); setStatus(startText()); });
+    document.getElementById('chess-reset').addEventListener('click', function () { if (busy || !game) return; reset(); startStatus(); });
     document.getElementById('chess-new').addEventListener('click', function () { if (busy || !Chess) return; newPuzzle(); });
     import('https://cdn.jsdelivr.net/npm/chess.js@1/+esm')
       .then(function (mod) {
@@ -1214,8 +1289,32 @@ body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
         if (!Chess) throw new Error('chess.js missing');
         showSolved(); newPuzzle();
       })
-      .catch(function () { setStatus('The board could not load. Refresh to try again.', 'bad'); });
+      .catch(function () { status('c_fail', 'bad'); });
   })();
+
+  /* ---------- start: language, then the chooser ---------- */
+  applyLang(store('lang') || 'en');
+
+  var chooser = document.getElementById('chooser');
+  var mode = null;
+  try { mode = new URLSearchParams(window.location.search).get('mode'); } catch (e) {}
+  function closeChooser() { chooser.hidden = true; document.body.classList.remove('locked'); }
+  if (mode === 'unserious') {
+    setBrainrot(true);
+  } else if (mode !== 'serious') {
+    chooser.hidden = false;
+    document.body.classList.add('locked');
+    chooser.querySelector('.ch-serious').focus();
+  }
+  chooser.querySelectorAll('[data-choose]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      closeChooser();
+      if (b.getAttribute('data-choose') === 'unserious') setBrainrot(true);
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !chooser.hidden) closeChooser();
+  });
 })();
 </script>
 </body>
