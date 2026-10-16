@@ -11,38 +11,31 @@
 <meta name="theme-color" content="#050609">
 <link rel="icon" id="favicon" href="pfp.jpeg">
 <link rel="apple-touch-icon" href="pfp.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#050609;
-  --text:#E6E9EF;
-  --grey:#9BA3B4;
-  --dim:#6B7385;
-  --green:#3DDC97;
-  --purple:#9D7BFF;
-  --red:#FF4D6D;
-  --line:rgba(255,255,255,.1);
-  --board-light:#3A4152;
-  --board-dark:#232835;
-  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
-  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --comic:"Comic Sans MS","Comic Neue","Chalkboard SE",cursive;
+  --bg:#050609; --text:#E6E9EF; --grey:#9BA3B4; --dim:#6B7385;
+  --green:#3DDC97; --purple:#9D7BFF; --red:#FF4D6D; --line:rgba(255,255,255,.1);
+  --board-light:#3A4152; --board-dark:#232835;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 *{ box-sizing:border-box; }
+[hidden]{ display:none !important; }
 html{ scroll-behavior:smooth; }
-body{ margin:0; background:var(--bg); color:var(--text); font:18px/1.65 var(--serif); -webkit-font-smoothing:antialiased; }
-body.locked{ overflow:hidden; }
+body{ margin:0; background:var(--bg); color:var(--text); font:17px/1.65 var(--sans); -webkit-font-smoothing:antialiased; }
 .page{ max-width:700px; margin:0 auto; padding:64px 24px 48px; }
-
 a{ color:var(--green); text-decoration:underline; text-decoration-color:rgba(61,220,151,.4); text-decoration-thickness:1px; text-underline-offset:3px; }
 a:hover{ text-decoration-color:currentColor; }
-h1{ font-size:1.9rem; line-height:1.2; margin:0; }
-h2{ font-size:1.3rem; margin:3em 0 .9em; padding-top:1.2em; border-top:1px solid var(--line); }
-h3{ font-size:1.08rem; margin:0; }
+h1{ font-size:2.1rem; font-weight:600; letter-spacing:-.02em; line-height:1.15; margin:0; }
+h2{ font-size:1.3rem; font-weight:600; letter-spacing:-.01em; margin:3em 0 .9em; padding-top:1.2em; border-top:1px solid var(--line); }
+h3{ font-size:1.1rem; font-weight:600; margin:0; }
 p{ margin:0 0 1em; }
 .muted{ color:var(--grey); }
 
-/* header */
 .who{ display:flex; align-items:center; gap:18px; margin-bottom:28px; }
 .who img{ width:76px; height:76px; border-radius:50%; object-fit:cover; object-position:center 18%; flex:none; }
 .tagline{ color:var(--grey); margin:4px 0 0; font-size:1rem; }
@@ -50,7 +43,6 @@ p{ margin:0 0 1em; }
 .toc{ font-family:var(--mono); font-size:.78rem; color:var(--dim); margin-top:22px; }
 .toc a{ color:var(--grey); }
 
-/* projects and events */
 .item{ margin:0 0 2.4em; }
 .item p{ margin:.4em 0; }
 .meta{ font-family:var(--mono); font-size:.76rem; color:var(--dim); margin:.15em 0 .5em; }
@@ -62,7 +54,6 @@ summary{ cursor:pointer; color:var(--grey); }
 details ol{ padding-left:1.3em; color:var(--grey); margin:.5em 0 0; }
 details li{ margin:.35em 0; }
 
-/* photos */
 .gallery{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:.8em; }
 .gallery.two{ grid-template-columns:repeat(2,minmax(0,1fr)); }
 .gallery.one{ grid-template-columns:minmax(0,1fr); }
@@ -72,15 +63,13 @@ details li{ margin:.35em 0; }
 .photos .shot{ --ar:4/5; }
 @media (max-width:560px){ .gallery, .gallery.two{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
-/* writing */
 .posts{ list-style:none; padding:0; margin:0; }
 .posts li{ display:grid; grid-template-columns:7.5em 1fr; gap:12px; margin:.55em 0; }
 .posts .d{ font-family:var(--mono); font-size:.76rem; color:var(--dim); padding-top:.38em; }
 @media (max-width:560px){ .posts li{ grid-template-columns:1fr; gap:0; } }
 
-/* skills */
 dl{ margin:0; }
-dt{ font-weight:bold; margin-top:.8em; }
+dt{ font-weight:600; margin-top:.8em; }
 dd{ margin:0; color:var(--grey); }
 
 /* chess */
@@ -102,7 +91,7 @@ dd{ margin:0; color:var(--grey); }
 .co{ position:absolute; font:500 .55rem/1 var(--mono); color:rgba(155,163,180,.75); pointer-events:none; }
 .co.rk{ top:3px; left:3px; }
 .co.fl{ bottom:3px; right:3px; }
-.status{ font-weight:bold; margin:.6em 0; min-height:1.6em; }
+.status{ font-weight:600; margin:.6em 0; min-height:1.6em; }
 .status.good{ color:var(--green); }
 .status.bad{ color:var(--red); }
 .pbtns{ display:flex; flex-wrap:wrap; gap:8px; }
@@ -110,40 +99,152 @@ dd{ margin:0; color:var(--grey); }
 .pbtn:hover{ border-color:rgba(255,255,255,.3); }
 .solved{ color:var(--dim); font-size:.85rem; margin-top:.8em; min-height:1.3em; }
 
-/* footer */
-footer{ margin-top:4em; padding-top:1.2em; border-top:1px solid var(--line); font-size:.9rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+footer.sfoot{ margin-top:4em; padding-top:1.2em; border-top:1px solid var(--line); font-size:.9rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
 .br-toggle{ font:inherit; font-size:.9rem; background:none; border:0; padding:0; color:var(--dim); text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
 .br-toggle:hover{ color:var(--purple); }
 
 /* lightbox */
-.lb{ position:fixed; inset:0; z-index:80; background:rgba(5,6,9,.95); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .25s, visibility 0s linear .25s; }
+.lb{ position:fixed; inset:0; z-index:90; background:rgba(5,6,9,.95); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .25s, visibility 0s linear .25s; }
 .lb.open{ opacity:1; visibility:visible; transition:opacity .25s; }
 .lb img{ max-width:min(92vw,1100px); max-height:80vh; object-fit:contain; }
-.lb-cap{ position:absolute; bottom:20px; left:0; right:0; text-align:center; color:var(--grey); font-size:.9rem; padding:0 70px; }
+.lb-cap{ position:absolute; bottom:20px; left:0; right:0; text-align:center; color:var(--grey); font:.9rem var(--sans); padding:0 70px; }
 .lb-btn{ position:absolute; width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.06); color:var(--text); font-size:1.3rem; line-height:1; cursor:pointer; }
 .lb-close{ top:16px; right:16px; }
 .lb-prev{ left:12px; top:50%; transform:translateY(-50%); }
 .lb-next{ right:12px; top:50%; transform:translateY(-50%); }
+body.locked{ overflow:hidden; }
 
-/* unserious mode */
-.br-exit, .br-mute{ display:none; position:fixed; z-index:75; cursor:pointer; font:700 1rem var(--comic); border:3px solid #111; box-shadow:4px 4px 0 #111; border-radius:999px; }
-.br-exit{ left:50%; bottom:20px; transform:translateX(-50%); background:#ffd43b; color:#111; padding:12px 22px; white-space:nowrap; }
-.br-mute{ left:16px; bottom:20px; background:#fff; color:#111; padding:8px 14px; font-size:.85rem; }
-@media (max-width:640px){ .br-exit{ font-size:.85rem; padding:10px 16px; bottom:16px; } .br-mute{ bottom:74px; } }
-body.brainrot{ --green:#ffd43b; --purple:#ff3cac; font-family:var(--comic); background:repeating-linear-gradient(45deg,#12002b 0 40px,#1a0040 40px 80px); }
+/* ================= UNSERIOUS MODE: The Chooramani Chronicle ================= */
+body.brainrot{ background:#ffd9ec; }
+body.brainrot .page{ display:none; }
+#zine{
+  --ink:#141414; --paper:#fff8e1; --y:#ffe14d; --p:#ff4fa3; --c:#3fd8ff; --l:#9dff57; --o:#ff8a3d; --v:#b9a3ff;
+  --bang:"Bangers",Impact,"Arial Black",sans-serif;
+  --hand:"Permanent Marker","Comic Sans MS",cursive;
+  --type:"Courier Prime","Courier New",monospace;
+  color:var(--ink); font:16px/1.5 var(--type); overflow-x:clip; padding-bottom:140px;
+  background:radial-gradient(rgba(0,0,0,.07) 1.2px, transparent 1.6px) 0 0/14px 14px, linear-gradient(135deg,#ffd9ec,#d9f6ff 50%,#fff1b8);
+}
+#zine a{ color:var(--ink); text-decoration-color:var(--p); text-decoration-thickness:3px; }
+#zine h2{ font:400 clamp(1.8rem,4vw,2.6rem)/1 var(--bang); letter-spacing:.03em; margin:0 0 12px; padding:0; border:0; }
+#zine h3{ font:400 1.9rem/1 var(--bang); letter-spacing:.03em; margin:2px 0 6px; }
+#zine p{ margin:0 0 .8em; }
+
+.ticker{ background:var(--ink); color:var(--y); overflow:hidden; white-space:nowrap; font:1.15rem/1 var(--bang); letter-spacing:.07em; padding:10px 0; border-bottom:5px solid var(--p); }
+.ticker-in{ display:inline-block; padding-left:100%; animation:tick 45s linear infinite; }
+@keyframes tick{ to{ transform:translateX(-100%); } }
+
+.mast{ max-width:1200px; margin:0 auto; padding:22px 20px 12px; text-align:center; border-bottom:6px double var(--ink); }
+.mast-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px 14px; font-size:.78rem; text-transform:uppercase; border-bottom:2px solid var(--ink); padding-bottom:6px; }
+.mast-title{ font:400 clamp(2.4rem,9vw,6.4rem)/1 "UnifrakturMaguntia",Georgia,serif; margin:14px 0 6px; }
+.mast-sub{ font-style:italic; font-size:.9rem; }
+
+.zwrap{ max-width:1200px; margin:0 auto; padding:40px 20px 0; }
+.zrow{ display:grid; grid-template-columns:var(--cols,1fr); gap:38px; margin-bottom:50px; align-items:start; }
+.zstack{ display:flex; flex-direction:column; gap:38px; }
+.panel{ position:relative; background:var(--pbg,var(--paper)); border:3px solid var(--ink); box-shadow:7px 7px 0 var(--ink); padding:22px; transform:rotate(var(--r,0deg)); }
+.kicker{ display:inline-block; background:var(--kb,var(--p)); color:#fff; font:1.05rem/1 var(--bang); letter-spacing:.06em; padding:5px 10px; transform:rotate(-2deg); margin-bottom:8px; }
+.headline{ font-size:clamp(2.1rem,5vw,3.7rem) !important; line-height:.95 !important; }
+.deck{ font-style:italic; font-size:1.05rem; border-bottom:2px solid var(--ink); padding-bottom:8px; }
+.fine{ font-size:.72rem; opacity:.85; }
+#zine a.btn-z, .btn-z{ display:inline-block; font:1.15rem/1 var(--bang); letter-spacing:.05em; background:var(--ink); color:var(--y); text-decoration:none; padding:8px 14px; margin:8px 8px 0 0; transform:rotate(-1deg); box-shadow:3px 3px 0 var(--p); border:0; cursor:pointer; }
+#zine a.btn-z:hover, .btn-z:hover{ transform:rotate(1deg) scale(1.05); }
+
+.halftone{ position:relative; float:right; width:min(42%,240px); margin:4px 0 12px 18px; border:3px solid var(--ink); background:#fff; padding:6px; transform:rotate(3deg); }
+.halftone img{ display:block; width:100%; aspect-ratio:1; object-fit:cover; object-position:center 18%; filter:grayscale(1) contrast(1.6) brightness(1.08); }
+.halftone::after{ content:""; position:absolute; inset:6px 6px 34px; background:radial-gradient(circle,rgba(0,0,0,.35) 35%,transparent 37%) 0 0/5px 5px; mix-blend-mode:multiply; pointer-events:none; }
+.halftone figcaption{ font:.95rem var(--hand); text-align:center; margin-top:6px; }
+
+.pol{ position:relative; background:#fff; padding:8px 8px 10px; margin:0; width:var(--w,170px); box-shadow:3px 5px 0 rgba(0,0,0,.25); transform:rotate(var(--r,-4deg)); cursor:pointer; z-index:4; transition:transform .2s; }
+.pol:hover{ transform:rotate(calc(var(--r,-4deg) * -1)) scale(1.06); }
+.pol img{ display:block; width:100%; height:auto; }
+.pol figcaption{ font:.95rem/1.2 var(--hand); text-align:center; margin-top:6px; }
+.pol::before{ content:""; position:absolute; top:-12px; left:50%; width:74px; height:22px; margin-left:-37px; background:rgba(255,225,77,.8); transform:rotate(-4deg); }
+.pol.wiggle{ animation:wig .5s; }
+@keyframes wig{ 25%{ transform:rotate(9deg) scale(1.1); } 50%{ transform:rotate(-9deg) scale(1.1); } 75%{ transform:rotate(4deg); } }
+.pin{ position:absolute; }
+.center{ margin:14px auto 0; }
+
+.note{ position:absolute; z-index:5; width:150px; padding:14px 12px; background:var(--y); font:1.05rem/1.2 var(--hand); box-shadow:2px 6px 10px rgba(0,0,0,.25); transform:rotate(var(--r,3deg)); }
+.note.pink{ background:#ff9fcf; } .note.cyan{ background:#9feaff; } .note.lime{ background:#c8ff9f; }
+
+.burst{ display:inline-flex; align-items:center; justify-content:center; text-align:center; width:var(--s,112px); aspect-ratio:1; padding:20px; background:var(--bb,var(--y)); font:1rem/1 var(--bang); letter-spacing:.03em; transform:rotate(var(--r,-8deg)); animation:pulse 1.4s ease-in-out infinite alternate;
+  clip-path:polygon(50% 0%,61% 12%,75% 6%,78% 21%,93% 25%,88% 39%,100% 50%,88% 61%,93% 75%,78% 79%,75% 94%,61% 88%,50% 100%,39% 88%,25% 94%,22% 79%,7% 75%,12% 61%,0% 50%,12% 39%,7% 25%,22% 21%,25% 6%,39% 12%); }
+@keyframes pulse{ to{ scale:1.07; } }
+.bursts{ display:flex; flex-wrap:wrap; gap:4px; margin:8px 0; }
+
+.ad{ position:relative; border:3px dashed var(--ink); padding:16px; margin:0 0 20px; background:var(--ab,#fff); }
+.ad .tag{ font-weight:700; text-transform:uppercase; font-size:.85rem; }
+
+.wanted{ text-align:center; }
+.wanted .big{ font:400 clamp(3.2rem,7vw,4.8rem)/.9 var(--bang); letter-spacing:.08em; }
+.wanted .sub{ text-transform:uppercase; font-weight:700; font-size:.82rem; }
+.wanted img{ display:block; width:72%; aspect-ratio:1; object-fit:cover; object-position:center 18%; margin:12px auto; border:3px solid var(--ink); filter:sepia(.85) contrast(1.2); }
+.ransom{ margin:8px 0 12px; line-height:2.1; }
+.ransom span{ display:inline-block; padding:2px 6px; margin:1px; font:1.4rem/1 var(--f); background:var(--b); color:var(--c); transform:rotate(var(--rr)); border:1px solid rgba(0,0,0,.15); }
+.reward{ font:2.1rem/1 var(--bang); color:#c4002b; letter-spacing:.06em; }
+
+.nutri{ background:#fff; border:3px solid var(--ink); padding:10px 14px; font-family:Helvetica,Arial,sans-serif; }
+#zine .nutri h2{ font:900 2.5rem/1 Helvetica,Arial,sans-serif; letter-spacing:-.02em; border-bottom:10px solid var(--ink); padding-bottom:4px; margin-bottom:4px; }
+.nrow{ display:flex; justify-content:space-between; gap:12px; border-top:1px solid var(--ink); padding:4px 0; font-size:.9rem; }
+.nrow.thick{ border-top:6px solid var(--ink); }
+.nrow small{ display:block; font-size:.7rem; color:#333; }
+
+.score{ width:100%; border-collapse:collapse; font-size:.95rem; margin-bottom:12px; }
+.score th{ background:var(--ink); color:var(--l); font:400 1.15rem/1 var(--bang); letter-spacing:.05em; text-align:left; padding:8px; }
+.score td{ border-bottom:2px solid var(--ink); padding:7px 8px; }
+.score tr:nth-child(odd) td{ background:rgba(63,216,255,.28); }
+
+.cards{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.sports-pics{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+#zine .postcard{ --ar:4/5; border:8px solid #fff; border-radius:2px; box-shadow:3px 5px 0 rgba(0,0,0,.3); transform:rotate(var(--r,2deg)); position:relative; background:#fff; }
+#zine .postcard::after{ content:"\20B9 5"; position:absolute; top:6px; right:6px; width:36px; height:42px; background:var(--p); color:#fff; font:700 .8rem/42px var(--type); text-align:center; outline:2px dashed #fff; outline-offset:-5px; }
+#zine .postcard:hover{ transform:rotate(0) scale(1.04); }
+
+.cls{ border-top:2px dashed var(--ink); padding:7px 0; font-size:.92rem; }
+.coupon{ border:4px dashed var(--ink) !important; text-align:center; }
+.coupon .cut{ font-size:.75rem; text-align:left; margin-bottom:6px; }
+.coupon .worth{ font:2.1rem/1 var(--bang); letter-spacing:.04em; }
+
+.radio{ background:var(--ink) !important; color:var(--y); text-align:center; }
+#zine .radio h2{ color:var(--y); }
+.vinyl{ width:130px; aspect-ratio:1; border-radius:50%; margin:6px auto 10px; position:relative; background:repeating-radial-gradient(circle,#111 0 2px,#2c2c2c 3px 4px); animation:spin 2.2s linear infinite; animation-play-state:paused; }
+.vinyl::after{ content:""; position:absolute; inset:37%; border-radius:50%; background:var(--p); box-shadow:0 0 0 4px var(--y); }
+.radio.playing .vinyl{ animation-play-state:running; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.track{ font-weight:700; }
+.radio button{ font:1.3rem/1 var(--bang); letter-spacing:.05em; background:var(--y); color:var(--ink); border:0; padding:8px 18px; cursor:pointer; box-shadow:3px 3px 0 var(--p); }
+.credit{ font-size:.68rem; color:#ddd; margin-top:12px !important; }
+#zine .credit a{ color:#fff; }
+
+#zine .play{ grid-template-columns:minmax(0,300px) 1fr; }
+#zine .muted{ color:var(--ink); }
+#zine .pbtn{ background:#fff; color:var(--ink); border:2px solid var(--ink); font:1.05rem/1 var(--bang); letter-spacing:.05em; padding:7px 12px; box-shadow:3px 3px 0 var(--ink); border-radius:0; }
+#zine .status{ font-family:var(--bang); font-weight:400; font-size:1.5rem; letter-spacing:.03em; }
+#zine .status.good{ color:#0a7a40; }
+#zine .status.bad{ color:#c4002b; }
+#zine .solved{ color:#333; }
+#zine .board{ border:3px solid var(--ink); border-radius:0; box-shadow:5px 5px 0 var(--ink); }
+
+.zfoot{ max-width:1200px; margin:10px auto 0; padding:22px 20px; border-top:6px double var(--ink); text-align:center; }
+
+.br-exit, .br-mute{ display:none; position:fixed; z-index:80; cursor:pointer; font:400 1.15rem/1 "Bangers",Impact,sans-serif; letter-spacing:.05em; border:3px solid #141414; box-shadow:4px 4px 0 #141414; border-radius:999px; }
+.br-exit{ right:16px; bottom:16px; background:#ffe14d; color:#141414; padding:12px 18px; }
+.br-mute{ left:16px; bottom:16px; background:#fff; color:#141414; padding:10px 14px; }
 body.brainrot .br-exit, body.brainrot .br-mute{ display:block; }
-body.brainrot h1{ display:inline-block; animation:rainbowc 3s linear infinite, wobble 2.2s ease-in-out infinite; }
-body.brainrot h2{ animation:rainbowc 4s linear infinite; }
-@keyframes rainbowc{ 0%{color:#ff3cac} 25%{color:#ffd43b} 50%{color:#3ddc97} 75%{color:#4fc3f7} 100%{color:#ff3cac} }
-@keyframes wobble{ 0%,100%{transform:rotate(-1.5deg)} 50%{transform:rotate(1.5deg)} }
-.meme{ position:fixed; top:0; left:0; z-index:70; cursor:pointer; will-change:transform; }
-.meme img{ display:block; width:100%; height:auto; border-radius:10px; border:3px solid #fff; box-shadow:0 10px 30px rgba(0,0,0,.6); -webkit-user-drag:none; user-select:none; }
-.meme img.boom{ animation:boom .45s ease-out forwards; }
-@keyframes boom{ to{ transform:scale(2.2) rotate(25deg); opacity:0; } }
-.ovation{ position:fixed; inset:0; z-index:85; display:flex; align-items:center; justify-content:center; pointer-events:none; font:700 clamp(3rem,14vw,9rem)/1 var(--comic); color:#ffd43b; text-shadow:6px 6px 0 #ff3cac; opacity:0; }
+.ovation{ position:fixed; inset:0; z-index:85; display:flex; align-items:center; justify-content:center; pointer-events:none; font:400 clamp(3rem,15vw,10rem)/1 "Bangers",Impact,sans-serif; color:#ffe14d; text-shadow:6px 6px 0 #ff4fa3, 12px 12px 0 #141414; opacity:0; }
 .ovation.show{ animation:ov 1.6s ease-out forwards; }
 @keyframes ov{ 0%{opacity:0; transform:scale(.4) rotate(-10deg)} 20%{opacity:1; transform:scale(1.1) rotate(4deg)} 70%{opacity:1; transform:scale(1)} 100%{opacity:0; transform:scale(1.3)} }
 
+@media (max-width:900px){
+  .zrow{ grid-template-columns:1fr !important; }
+  .pin{ position:relative !important; inset:auto !important; margin:18px auto 0; }
+  .note{ position:relative !important; inset:auto !important; display:inline-block; margin:10px 8px 0 0; }
+  .halftone{ float:none; width:70%; margin:10px auto 14px; }
+  #zine .play{ grid-template-columns:1fr; }
+  .panel{ transform:rotate(calc(var(--r,0deg) * .5)); }
+}
+@media (max-width:560px){ .cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
   *, *::before, *::after{ animation:none !important; transition:none !important; }
@@ -151,6 +252,8 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
 </style>
 </head>
 <body>
+
+<!-- ======================= SERIOUS MODE ======================= -->
 <div class="page">
 
 <header id="top">
@@ -158,16 +261,14 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
     <img src="pfp.jpeg" alt="Aditya Chooramani">
     <div>
       <h1>Aditya Chooramani</h1>
-      <p class="tagline" data-br="security, cloud, full-stack, aura farming. Mathura, India.">Security, cloud and full-stack. Mathura, India.</p>
+      <p class="tagline">Security, cloud and full-stack. Mathura, India.</p>
     </div>
   </div>
-
-  <p data-br="hi it's aditya. i build apps on AWS and Azure, then hack them myself before the bad guys can. made top 22 in the world at Imagine Cup and top 2% at Smart India Hackathon. looking for a security job, hire me or the lion keeps struggling.">
+  <p>
     I'm a final-year BCA student who builds web apps on AWS and Azure and then tries to break into them.
     My team was a global semifinalist at Microsoft Imagine Cup 2026 (top 22 worldwide) and a national
     finalist at Smart India Hackathon 2025 (top 2%). I'm looking for a full-time job in security.
   </p>
-
   <p class="links">
     <a href="mailto:adityaxchooramani@gmail.com">Email</a> /
     <a href="https://github.com/adityachooramani">GitHub</a> /
@@ -176,19 +277,18 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
     <a href="https://x.com/aa9itya">X</a> /
     <a href="resume.pdf">Résumé (PDF)</a>
   </p>
-
   <div class="toc">
     <a href="#projects">projects</a> · <a href="#hackathons">hackathons</a> · <a href="#writing">writing</a> ·
     <a href="#skills">skills</a> · <a href="#about">about</a> · <a href="#photos">photos</a> · <a href="#chess">chess</a>
   </div>
 </header>
 
-<h2 id="projects" data-br="stuff i cooked">Projects</h2>
+<h2 id="projects">Projects</h2>
 
 <div class="item">
   <h3>Dustinel AI</h3>
   <div class="meta">2026 · cloud, AI/ML · lead full-stack developer, team of 3</div>
-  <p data-br="bro deployed 18 Azure services and still touched grass. workers take a selfie, the AI checks for a helmet, and if it's missing the manager gets an SMS. no cap, it actually works.">
+  <p>
     A worker-safety app we built for Microsoft Imagine Cup. Before a shift, workers send a selfie and a
     short video. Azure AI Vision checks for helmets and masks, GPT-4o writes safety guidance, and high-risk
     results alert the site manager by SMS. The frontend is Next.js, the backend is Node and Express, and
@@ -212,7 +312,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
 <div class="item">
   <h3>Break&amp;Detect</h3>
   <div class="meta">solo · <span class="sec">security</span> · DevSecOps project</div>
-  <p data-br="i put 8 bugs in my own app on purpose and asked the robots to find them. the robots found some. the rest? skill issue (theirs).">
+  <p>
     A Flask API with eight security bugs added on purpose, run through a GitHub Actions pipeline
     with Gitleaks, Semgrep, Bandit, Trivy, Checkov and OWASP ZAP. I wanted to see which bugs the
     scanners catch and which they miss. A second branch fixes every finding.
@@ -224,7 +324,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
 <div class="item">
   <h3>Sentinel Eye</h3>
   <div class="meta">Feb 2026 · cloud · lead backend and cloud developer, team of 3</div>
-  <p data-br="satellite data go brrr. 1.6 GB of maps served in under 200ms. built in two days at a hackathon, powered by chai and questionable sleep.">
+  <p>
     A geospatial analytics backend on AWS, built over two days at the Hyperspace Innovation Hackathon
     in Ghaziabad. It serves REST endpoints over MySQL, ingests 1.6 GB of geospatial data from S3, responds
     in under 200ms, and sends SNS alerts when infrastructure changes. IAM permissions were kept to the
@@ -237,7 +337,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
 <div class="item">
   <h3>Sagar Sahayak</h3>
   <div class="meta">Dec 2025 · AI/ML, backend · team of 4</div>
-  <p data-br="ocean surveillance but make it hackathon. we trained AI to spot underwater threats and made it to nationals. the ocean has never been this watched.">
+  <p>
     A maritime monitoring system for the national security track of Smart India Hackathon. I wrote the
     Django backend, which takes in high-frequency sensor data and turns raw hardware payloads into REST
     responses. We also trained and fine-tuned PyTorch models for underwater threat detection and image
@@ -250,7 +350,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
 <div class="item">
   <h3>Falter network hardening</h3>
   <div class="meta">open source · <span class="sec">security</span> · Freifunk Berlin</div>
-  <p data-br="got my code merged into a real open-source project in Berlin. the maintainers reviewed it and did not laugh. massive W.">
+  <p>
     A merged pull request to Freifunk Berlin's Falter packages for OpenWrt mesh nodes. It adds a
     UCI-to-Bird2 configuration translator in C and shell, with tamper triggers and RAM-backed volatile
     execution to reduce the attack surface on each node.
@@ -259,14 +359,12 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
   <div class="links"><a href="https://github.com/freifunk-berlin/falter-packages/pull/502">Pull request</a></div>
 </div>
 
-<h2 id="hackathons" data-br="side quests">Hackathons and events</h2>
+<h2 id="hackathons">Hackathons and events</h2>
 
 <div class="item">
   <h3>Microsoft Imagine Cup 2026</h3>
   <div class="meta">global semifinalist · top 22 worldwide</div>
-  <p data-br="made the global semis of Imagine Cup. top 22 on the planet. the aura is immeasurable.">
-    Our team, Sentinel Rhino, made the global semifinals with Dustinel AI.
-  </p>
+  <p>Our team, Sentinel Rhino, made the global semifinals with Dustinel AI.</p>
   <div class="gallery one" data-gallery data-caption="Microsoft Imagine Cup 2026">
     <button class="shot tall" type="button"><img src="media/events/imagine-cup.jpg" alt="Imagine Cup semifinalist card for team Sentinel Rhino" loading="lazy"></button>
   </div>
@@ -275,10 +373,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
 <div class="item">
   <h3>AI Summit expo, Bharat Mandapam</h3>
   <div class="meta">2026 · New Delhi</div>
-  <p data-br="pulled up to Bharat Mandapam, shook hands with big tech people, and stared at a robot dog for way too long.">
-    I went to meet people building in AI, from students to senior leaders at big tech companies, and to see
-    the hardware up close.
-  </p>
+  <p>I went to meet people building in AI, from students to senior leaders at big tech companies, and to see the hardware up close.</p>
   <div class="gallery one" data-gallery data-caption="AI Summit expo, Bharat Mandapam, 2026">
     <button class="shot" type="button" style="--ar:16/9"><img src="media/events/ai-summit.jpg" alt="At the AI Summit expo, Bharat Mandapam" loading="lazy"></button>
   </div>
@@ -287,9 +382,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
 <div class="item">
   <h3>Hyperspace Innovation Hackathon</h3>
   <div class="meta">8 to 9 Feb 2026 · Ghaziabad</div>
-  <p data-br="two days, one backend, very little sleep. Sentinel Eye was born here.">
-    Two days of building Sentinel Eye and walking people through the demo.
-  </p>
+  <p>Two days of building Sentinel Eye and walking people through the demo.</p>
   <div class="gallery two" data-gallery data-caption="Hyperspace Innovation Hackathon, Ghaziabad, February 2026">
     <button class="shot" type="button"><img src="media/events/hyperspace-1.jpg" alt="Coding at the Hyperspace Innovation Hackathon" loading="lazy"></button>
     <button class="shot" type="button"><img src="media/events/hyperspace-2.jpg" alt="Demoing Sentinel Eye" loading="lazy"></button>
@@ -299,10 +392,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
 <div class="item">
   <h3>Smart India Hackathon 2025, Grand Finale</h3>
   <div class="meta">8 to 9 Dec 2025 · Bengaluru · national finalist, top 2%</div>
-  <p data-br="nationals arc. top 2% in the whole country. the ocean is safe now (probably).">
-    Two days at Nagarjuna College of Engineering and Technology, building and demoing Sagar Sahayak for the
-    national security track.
-  </p>
+  <p>Two days at Nagarjuna College of Engineering and Technology, building and demoing Sagar Sahayak for the national security track.</p>
   <div class="gallery" data-gallery data-caption="Smart India Hackathon 2025, Grand Finale, Bengaluru">
     <button class="shot" type="button"><img src="media/events/sih-1.jpg" alt="Team at the SIH 2025 Grand Finale" loading="lazy"></button>
     <button class="shot" type="button"><img src="media/events/sih-2.jpg" alt="Team on stage at the SIH 2025 Grand Finale" loading="lazy"></button>
@@ -310,13 +400,13 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
   </div>
 </div>
 
-<h2 id="writing" data-br="yapping, but written">Writing</h2>
+<h2 id="writing">Writing</h2>
 <ul class="posts">
   <li><span class="d">11 Jul 2026</span><a href="https://dev.to/adityachooramani/i-put-eight-security-bugs-in-a-flask-app-on-purpose-the-robots-only-caught-some-of-them-4h55">I Put Eight Security Bugs in a Flask App on Purpose. The Robots Only Caught Some of Them.</a></li>
   <li><span class="d">27 Jun 2026</span><a href="https://dev.to/adityachooramani/i-tried-to-hack-my-own-hackathon-project-it-took-ten-minutes-5np">I Tried to Hack My Own Hackathon Project. It Took Ten Minutes</a></li>
 </ul>
 
-<h2 id="skills" data-br="aura stats">Skills</h2>
+<h2 id="skills">Skills</h2>
 <dl>
   <dt>Security</dt><dd>Burp Suite, OWASP Top 10, Kali Linux, Wireshark, Nmap, Metasploit, Semgrep, Trivy, Snyk, MITRE ATT&amp;CK</dd>
   <dt>Cloud and DevOps</dt><dd>AWS, Azure, Docker, GitHub Actions, Git, Nginx, Linux, Bash</dd>
@@ -325,24 +415,24 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
   <dt>Frontend</dt><dd>React, Next.js, TypeScript, JavaScript, Tailwind CSS, Bootstrap, HTML, CSS</dd>
 </dl>
 
-<h2 id="about" data-br="lore">About</h2>
-<p data-br="lore drop: been obsessed with computers since age 6. got my own pc in 4th standard and deleted the C drive to free up space. it did free up space.">
+<h2 id="about">About</h2>
+<p>
   I've been hooked on computers since I was six, back when they were mostly for games. I got my own in
   4th standard and spent hours clicking every button and opening every setting to see what it did. That
   went fine until the day I deleted the C drive to free up some space. It worked, technically.
 </p>
-<p data-br="then i found out hackers exist and picked the legal path. BCA was for the plot. graduating 2027.">
+<p>
   Around then I found out hackers were a thing, and I decided I'd be one. The legal kind, the one people
   call to find the holes before someone else does. BCA was the natural way to study computers properly,
   and I graduate in 2027.
 </p>
-<p data-br="now i build stuff, break stuff, fix stuff, repeat. certified ethical hacker in training. off the clock: chess, movies, filming, travel.">
+<p>
   I've completed TCM Security's Practical Ethical Hacking course and I'm working through PortSwigger's Web
   Security Academy. Away from the keyboard I play chess, watch movies and series, and travel with a camera.
 </p>
 
-<h2 id="photos" data-br="touching grass (documented)">Photos</h2>
-<p class="muted" data-br="tap one. or don't. i'm not your boss.">Some photos I took around India.</p>
+<h2 id="photos">Photos</h2>
+<p class="muted">Some photos I took around India.</p>
 <div class="gallery photos" data-gallery data-caption="Photos I took around India">
   <button class="shot" type="button"><img src="media/travel/adiyogi.jpg" alt="Adiyogi statue, Coimbatore" loading="lazy"></button>
   <button class="shot" type="button"><img src="media/travel/aarti.jpg" alt="Evening aarti at Vishram Ghat, Mathura" loading="lazy"></button>
@@ -352,27 +442,280 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
   <button class="shot" type="button"><img src="media/travel/eagle-mural.jpg" alt="Eagle mural at Bharat Mandapam" loading="lazy"></button>
 </div>
 
-<h2 id="chess" data-br="mate in two (i am him)">Mate in two</h2>
-<div class="play">
-  <div class="board" id="board" aria-label="Chess board"></div>
-  <div>
-    <p class="muted" data-br="solve this in two moves or the lion keeps struggling.">A new puzzle every visit. Tap a piece, then tap where it should go.</p>
-    <div class="status" id="chess-status" aria-live="polite">Setting up the board…</div>
-    <div class="pbtns">
-      <button class="pbtn" id="chess-hint" type="button">Hint</button>
-      <button class="pbtn" id="chess-reset" type="button">Reset</button>
-      <button class="pbtn" id="chess-new" type="button">New puzzle</button>
+<h2 id="chess">Mate in two</h2>
+<div id="chess-home">
+  <div class="play">
+    <div class="board" id="board" aria-label="Chess board"></div>
+    <div>
+      <p class="muted">A new puzzle every visit. Tap a piece, then tap where it should go.</p>
+      <div class="status" id="chess-status" aria-live="polite">Setting up the board…</div>
+      <div class="pbtns">
+        <button class="pbtn" id="chess-hint" type="button">Hint</button>
+        <button class="pbtn" id="chess-reset" type="button">Reset</button>
+        <button class="pbtn" id="chess-new" type="button">New puzzle</button>
+      </div>
+      <div class="solved" id="chess-solved"></div>
     </div>
-    <div class="solved" id="chess-solved"></div>
   </div>
 </div>
 
-<footer>
+<footer class="sfoot">
   <span>© 2026 Aditya Chooramani. <a href="mailto:adityaxchooramani@gmail.com">adityaxchooramani@gmail.com</a></span>
   <button class="br-toggle" type="button" data-br-toggle>Unserious mode</button>
 </footer>
-
 </div>
+
+<!-- ======================= UNSERIOUS MODE ======================= -->
+<div id="zine" hidden>
+  <div class="ticker" aria-hidden="true"><div class="ticker-in">
+    BREAKING: LOCAL HACKER STILL LOOKING FOR JOB &nbsp;✦&nbsp; CHAI PRICES STABLE &nbsp;✦&nbsp; BUGS FOUND: MANY. BUGS FIXED: ALSO MANY &nbsp;✦&nbsp;
+    IMAGINE CUP: TOP 22 ON THE ENTIRE PLANET &nbsp;✦&nbsp; SCIENTISTS CONFIRM IT WORKS ON HIS MACHINE &nbsp;✦&nbsp; C DRIVE STILL MISSING, PRESUMED DELETED &nbsp;✦&nbsp;
+    CAPYBARA PROMOTED TO SENIOR ENGINEER &nbsp;✦&nbsp; NEVER DEPLOY ON A FRIDAY &nbsp;✦&nbsp;
+  </div></div>
+
+  <header class="mast">
+    <div class="mast-top"><span>Vol. 69, No. 404</span><span>Mathura edition</span><span>Price: 1 job offer</span></div>
+    <div class="mast-title">The Chooramani Chronicle</div>
+    <div class="mast-sub">All the news that's fit to commit. Weather: 100% chance of bugs, clearing by deploy.</div>
+  </header>
+
+  <div class="zwrap">
+
+    <div class="zrow" style="--cols:2fr 1fr">
+      <article class="panel">
+        <span class="kicker">EXCLUSIVE</span>
+        <h2 class="headline">Local boy deletes own C drive, calls it "disk cleanup"</h2>
+        <p class="deck">Experts say this is how every hacker origin story starts.</p>
+        <figure class="halftone"><img src="pfp.jpeg" alt="Aditya Chooramani"><figcaption>THE SUSPECT, pictured</figcaption></figure>
+        <p><b>MATHURA.</b> Witnesses report that a 4th standard student, handed his very first computer, clicked every single button on it "just to see what happens." Things went fine until he deleted the C drive to free up space. Sources confirm: space was freed.</p>
+        <p>Years later the same boy, Aditya Chooramani, builds apps on AWS and Azure and then breaks into them on purpose. Police were called. Police said that is literally what security people do, and asked for his résumé.</p>
+        <a class="btn-z" href="resume.pdf">READ HIS RAP SHEET (RÉSUMÉ)</a>
+        <figure class="pol pin" style="--r:-7deg; --w:170px; bottom:-60px; left:-34px"><img src="media/memes/forgor.jpg" alt="" loading="lazy"><figcaption>artist's impression of the incident</figcaption></figure>
+        <div class="note" style="--r:5deg; top:-22px; right:28%">it works on my machine</div>
+      </article>
+
+      <aside class="panel wanted" style="--r:1.5deg; --pbg:#f3dfb0">
+        <div class="big">WANTED</div>
+        <div class="sub">for crimes against vulnerable code</div>
+        <img src="pfp.jpeg" alt="">
+        <div class="ransom" data-ransom>ADITYA CHOORAMANI</div>
+        <p>Last seen: Mathura, India.<br>Known associates: Burp Suite, Nmap, one cup of chai.</p>
+        <div class="reward">REWARD</div>
+        <p>One (1) full-time security job.<br>Serious offers only, unlike this page.</p>
+        <a class="btn-z" href="mailto:adityaxchooramani@gmail.com">REPORT A SIGHTING</a>
+        <figure class="pol pin" style="--r:8deg; --w:150px; top:-40px; right:-30px"><img src="media/memes/lion-struggling.jpg" alt="" loading="lazy"><figcaption>him, job hunting</figcaption></figure>
+      </aside>
+    </div>
+
+    <div class="zrow" style="--cols:7fr 5fr">
+      <section class="panel" style="--r:-.6deg">
+        <span class="kicker" style="--kb:#141414">ADVERTISEMENT</span>
+        <h2>As seen on TV <small style="font-size:.5em">(it was not on TV)</small></h2>
+
+        <div class="ad" style="--ab:#bff3ff">
+          <div class="tag">Tired of workers NOT wearing helmets?</div>
+          <h3>Dustinel AI™</h3>
+          <p>Take a selfie. The AI checks for your helmet. Forgot it? Your manager gets an SMS. It's snitching, but make it safety.</p>
+          <div class="bursts">
+            <span class="burst" style="--r:-8deg">18 AZURE SERVICES!</span>
+            <span class="burst" style="--bb:#ff9fcf; --r:6deg">50+ USERS!</span>
+            <span class="burst" style="--bb:#c8ff9f; --r:-4deg">$25K AZURE CREDITS!</span>
+            <span class="burst" style="--bb:#ffc48a; --r:9deg">UNDER 100MS!</span>
+          </div>
+          <p class="fine">*Imagine Cup 2026, top 22 worldwide. Helmet sold separately.</p>
+          <a class="btn-z" href="https://dustinel-ai.vercel.app">ORDER NOW (LIVE APP)</a><a class="btn-z" href="https://github.com/adityachooramani/Dustinel_AI">READ THE MANUAL</a>
+        </div>
+
+        <div class="ad" style="--ab:#fff3a8">
+          <div class="tag">Warning: contains bugs (on purpose)</div>
+          <h3>Break&amp;Detect</h3>
+          <p>We hid 8 bugs in a Flask app. 6 robot scanners went looking. Not every bug was found. The robots have been spoken to.</p>
+          <div class="bursts">
+            <span class="burst" style="--bb:#ff9fcf; --r:5deg">8 BUGS!</span>
+            <span class="burst" style="--bb:#bff3ff; --r:-7deg">6 ROBOTS!</span>
+            <span class="burst" style="--bb:#c8ff9f; --r:4deg">FIX BRANCH FREE!</span>
+          </div>
+          <a class="btn-z" href="https://github.com/adityachooramani/break-and-detect">SEE THE EVIDENCE</a><a class="btn-z" href="https://dev.to/adityachooramani/i-put-eight-security-bugs-in-a-flask-app-on-purpose-the-robots-only-caught-some-of-them-4h55">READ THE CONFESSION</a>
+        </div>
+
+        <div class="ad" style="--ab:#d9ffbf">
+          <div class="tag">Satellite data go brrr</div>
+          <h3>Sentinel Eye</h3>
+          <p>1.6 GB of maps, served in under 200ms. Built in two days at a hackathon in Ghaziabad, powered by chai and questionable sleep.</p>
+          <div class="bursts">
+            <span class="burst" style="--r:-6deg">1.6 GB!</span>
+            <span class="burst" style="--bb:#ffc48a; --r:7deg">UNDER 200MS!</span>
+            <span class="burst" style="--bb:#ff9fcf; --r:-3deg">40% FASTER!</span>
+          </div>
+          <a class="btn-z" href="https://github.com/adityachooramani/sentinel-eye_backend">INSPECT THE GOODS</a>
+          <figure class="pol pin" style="--r:6deg; --w:160px; top:-30px; right:-46px"><img src="media/memes/capybara.jpg" alt="" loading="lazy" data-capy><figcaption>lead backend engineer, hard at work</figcaption></figure>
+        </div>
+
+        <div class="ad" style="--ab:#ffd0e8">
+          <div class="tag">The ocean is watching</div>
+          <h3>Sagar Sahayak</h3>
+          <p>We taught AI to spot underwater threats. It went so well we made the national finals. The fish have filed a privacy complaint.</p>
+          <div class="bursts">
+            <span class="burst" style="--bb:#bff3ff; --r:-5deg">TOP 2% IN INDIA!</span>
+            <span class="burst" style="--r:6deg">99% UPTIME!</span>
+          </div>
+        </div>
+
+        <div class="ad" style="--ab:#ffe0c2">
+          <div class="tag">Now available in Berlin</div>
+          <h3>Falter</h3>
+          <p>Merged into a real open-source project in Germany. The maintainers reviewed it and did not laugh. Wunderbar.</p>
+          <a class="btn-z" href="https://github.com/freifunk-berlin/falter-packages/pull/502">SEE THE PROOF</a>
+        </div>
+        <div class="note pink" style="--r:-6deg; top:38%; left:-40px">do NOT click the capybara</div>
+      </section>
+
+      <div class="zstack">
+        <aside class="panel" style="--r:1deg; padding:14px">
+          <div class="nutri">
+            <h2>Nutrition Facts</h2>
+            <div class="nrow"><span>Serving size</span><b>1 developer</b></div>
+            <div class="nrow"><span>Servings per job</span><b>1 (please)</b></div>
+            <div class="nrow thick"><b>Chai per day</b><b>4 cups</b></div>
+            <div class="nrow"><span><b>Security</b><small>Burp Suite, Nmap, Metasploit, Wireshark, Semgrep, Trivy</small></span><b>120%</b></div>
+            <div class="nrow"><span><b>Cloud and DevOps</b><small>AWS, Azure, Docker, GitHub Actions, Linux</small></span><b>95%</b></div>
+            <div class="nrow"><span><b>Backend</b><small>Node.js, Express, Django, Flask, FastAPI, PostgreSQL</small></span><b>90%</b></div>
+            <div class="nrow"><span><b>AI and ML</b><small>PyTorch, OpenCV, ONNX, scikit-learn, RAG</small></span><b>80%</b></div>
+            <div class="nrow"><span><b>Frontend</b><small>React, Next.js, TypeScript, Tailwind</small></span><b>75%</b></div>
+            <div class="nrow thick"><b>Sleep</b><b>3%</b></div>
+            <p class="fine" style="margin-top:6px">*Percent Daily Values are completely made up. Contains: bugs (fixed). May contain traces of Stack Overflow.</p>
+          </div>
+          <figure class="pol pin" style="--r:-9deg; --w:150px; bottom:-56px; right:-24px"><img src="media/memes/lie-to-yourself.jpg" alt="" loading="lazy"><figcaption>me reading this label</figcaption></figure>
+        </aside>
+
+        <aside class="panel" style="--r:-1.5deg; --pbg:#e3d7ff">
+          <span class="kicker" style="--kb:#7a4dff">THE STARS</span>
+          <h2>Horoscope</h2>
+          <p><b>Hackerus</b> (you, the reader): The stars say you will hire someone this week. The stars also say it's me.</p>
+          <p><b>Debugius:</b> Mercury is in retrograde. Your code is not. Stop blaming Mercury.</p>
+          <p><b>Deployus:</b> Never deploy on a Friday. Today is probably a Friday.</p>
+          <figure class="pol center" style="--r:4deg; --w:160px"><img src="media/memes/tweaking.jpg" alt="" loading="lazy"><figcaption>our astrologer, consulting the stars</figcaption></figure>
+        </aside>
+
+        <aside class="panel" style="--r:1.2deg; --pbg:#ffe14d">
+          <h2>Weekend plans</h2>
+          <p>Saturday: hackathon.<br>Sunday: recovering from the hackathon.</p>
+          <figure class="pol center" style="--r:-5deg; --w:150px"><img src="media/memes/shark.jpg" alt="" loading="lazy"><figcaption>Sunday, as documented</figcaption></figure>
+        </aside>
+      </div>
+    </div>
+
+    <div class="zrow" style="--cols:6fr 5fr">
+      <section class="panel" style="--r:-1deg">
+        <span class="kicker" style="--kb:#0a9bd0">SPORTS</span>
+        <h2>Hackathon league standings</h2>
+        <table class="score">
+          <tr><th>Event</th><th>Opponent</th><th>Result</th></tr>
+          <tr><td>Imagine Cup 2026</td><td>The entire planet</td><td>Top 22</td></tr>
+          <tr><td>Smart India Hackathon 2025</td><td>All of India</td><td>Top 2%</td></tr>
+          <tr><td>Hyperspace Hackathon, Feb 2026</td><td>Sleep</td><td>Sleep lost</td></tr>
+          <tr><td>AI Summit, Bharat Mandapam</td><td>A robot dog</td><td>Draw</td></tr>
+        </table>
+        <div class="sports-pics" data-gallery data-caption="Hackathon highlights">
+          <button class="shot postcard" type="button" style="--r:-3deg"><img src="media/events/sih-1.jpg" alt="SIH 2025 team" loading="lazy"></button>
+          <button class="shot postcard" type="button" style="--r:4deg"><img src="media/events/hyperspace-1.jpg" alt="Hyperspace Hackathon" loading="lazy"></button>
+        </div>
+        <p class="fine" style="margin-top:10px">Team photos, taken before the sleep debt hit.</p>
+        <figure class="pol pin" style="--r:7deg; --w:160px; top:-44px; right:-26px"><img src="media/memes/rock-on.jpg" alt="" loading="lazy"><figcaption>the team after making nationals</figcaption></figure>
+      </section>
+
+      <div class="zstack">
+        <section class="panel" style="--r:.8deg; --pbg:#fff">
+          <span class="kicker" style="--kb:#ff8a3d">OPINION</span>
+          <h2>Columns by our staff hacker</h2>
+          <p><a href="https://dev.to/adityachooramani/i-put-eight-security-bugs-in-a-flask-app-on-purpose-the-robots-only-caught-some-of-them-4h55">I put eight security bugs in a Flask app on purpose. The robots only caught some of them.</a></p>
+          <p><a href="https://dev.to/adityachooramani/i-tried-to-hack-my-own-hackathon-project-it-took-ten-minutes-5np">I tried to hack my own hackathon project. It took ten minutes.</a></p>
+          <figure class="pol center" style="--r:-5deg; --w:160px"><img src="media/memes/cat-ohhh.jpg" alt="" loading="lazy"><figcaption>the scanners, reading my code</figcaption></figure>
+        </section>
+
+        <section class="panel" style="--r:-.5deg">
+          <h2>Classifieds</h2>
+          <div class="cls"><b>FOR SALE:</b> One (1) C drive. Lightly used. Completely empty.</div>
+          <div class="cls"><b>LOST:</b> Sleep. Last seen at a hackathon in Ghaziabad. Reward if found.</div>
+          <div class="cls"><b>SERVICES:</b> Will hack your app (legally). Will not fix your Wi-Fi.</div>
+          <div class="cls"><b>SEEKING:</b> A team that lets me break things on purpose. Write to <a href="mailto:adityaxchooramani@gmail.com">adityaxchooramani@gmail.com</a>.</div>
+          <div class="cls"><b>FREE:</b> Unsolicited security advice. Rotate your keys.</div>
+          <figure class="pol pin" style="--r:7deg; --w:150px; bottom:-60px; right:-20px"><img src="media/memes/remebar.jpg" alt="" loading="lazy"><figcaption>me, remembering my own password</figcaption></figure>
+        </section>
+      </div>
+    </div>
+
+    <div class="zrow" style="--cols:7fr 4fr">
+      <section class="panel" style="--r:.5deg; --pbg:#bff3ff">
+        <span class="kicker">PUZZLE CORNER</span>
+        <h2>Mate in two. Losers buy chai.</h2>
+        <div id="z-chess"></div>
+        <figure class="pol pin" style="--r:-8deg; --w:150px; bottom:-50px; left:-30px"><img src="media/memes/cat-clap.jpg" alt="" loading="lazy"><figcaption>you, after solving it</figcaption></figure>
+        <div class="note cyan" style="--r:-4deg; top:-22px; right:24px">hint: the hint button exists</div>
+      </section>
+
+      <div class="zstack">
+        <aside class="panel radio" style="--r:-1.2deg">
+          <h2>Now playing</h2>
+          <div class="vinyl" aria-hidden="true"></div>
+          <p class="track">"Monkeys Spinning Monkeys"<br>Kevin MacLeod</p>
+          <button type="button" id="z-play">PLAY</button>
+          <p class="credit">Music: "Monkeys Spinning Monkeys" by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+          <figure class="pol pin" style="--r:9deg; --w:140px; top:-40px; right:-28px"><img src="media/memes/dog-headphones.jpg" alt="" loading="lazy"><figcaption>our resident DJ</figcaption></figure>
+        </aside>
+
+        <aside class="panel coupon" style="--r:2deg; --pbg:#c8ff9f">
+          <div class="cut">- - - - - - cut here - - - - - -</div>
+          <div class="worth">This coupon is good for</div>
+          <p>ONE (1) free security review of your login page*</p>
+          <a class="btn-z" href="mailto:adityaxchooramani@gmail.com?subject=Redeeming%20my%20coupon">REDEEM</a>
+          <p class="fine" style="margin-top:10px">*Valid only after you hire me. No cash value. Does not expire, like my enthusiasm.</p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="zrow">
+      <section class="panel" style="--pbg:#ffd9a8">
+        <span class="kicker" style="--kb:#0a7a40">TRAVEL SUPPLEMENT</span>
+        <h2>Greetings from India</h2>
+        <div class="cards" data-gallery data-caption="Greetings from India">
+          <button class="shot postcard" type="button" style="--r:-3deg"><img src="media/travel/adiyogi.jpg" alt="Adiyogi statue, Coimbatore" loading="lazy"></button>
+          <button class="shot postcard" type="button" style="--r:2deg"><img src="media/travel/aarti.jpg" alt="Evening aarti, Vishram Ghat" loading="lazy"></button>
+          <button class="shot postcard" type="button" style="--r:-1deg"><img src="media/travel/red-fort.jpg" alt="Red Fort, Delhi" loading="lazy"></button>
+          <button class="shot postcard" type="button" style="--r:3deg"><img src="media/travel/bird.jpg" alt="A bird in flight" loading="lazy"></button>
+          <button class="shot postcard" type="button" style="--r:-4deg"><img src="media/travel/robot-dog.jpg" alt="Robot dog" loading="lazy"></button>
+          <button class="shot postcard" type="button" style="--r:2deg"><img src="media/travel/eagle-mural.jpg" alt="Eagle mural" loading="lazy"></button>
+        </div>
+        <p class="fine" style="margin-top:14px">Photos by the suspect. No robot dogs were harmed.</p>
+        <div class="note lime" style="--r:6deg; top:-24px; right:40px">wish you were here (to hire me)</div>
+      </section>
+    </div>
+
+    <div class="zrow" style="--cols:1fr 1fr">
+      <section class="panel" style="--r:-.8deg">
+        <h2>Letters to the editor</h2>
+        <p>"I clicked unserious mode and now I cannot unsee it."<br><i>Signed, a recruiter</i></p>
+        <p>"Is the capybara on payroll?"<br><i>Signed, concerned HR</i></p>
+        <p><b>Editor's note:</b> yes.</p>
+        <figure class="pol center" style="--r:5deg; --w:180px"><img src="media/memes/opinions-fly.jpg" alt="" loading="lazy"><figcaption>the editor, handling complaints</figcaption></figure>
+      </section>
+
+      <aside class="panel" style="--r:1deg; --pbg:#c8ff9f">
+        <h2>The staff</h2>
+        <p><b>Editor in chief:</b> Aditya<br><b>Head of security:</b> Aditya<br><b>Cloud department:</b> Aditya<br><b>Chess correspondent:</b> Aditya<br><b>Senior engineer:</b> the capybara</p>
+        <p>Got a tip? <a href="mailto:adityaxchooramani@gmail.com">adityaxchooramani@gmail.com</a><br><a href="https://github.com/adityachooramani">GitHub</a> / <a href="https://linkedin.com/in/adityachooramani">LinkedIn</a> / <a href="https://dev.to/adityachooramani">dev.to</a></p>
+        <div class="note pink" style="--r:-5deg; bottom:-26px; right:20px">chai count today: 4</div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="zfoot">
+    <p>THE CHOORAMANI CHRONICLE. Printed on 100% recycled bugs.</p>
+    <button class="btn-z" type="button" data-br-toggle>GO BACK TO BEING EMPLOYABLE</button>
+  </footer>
+</div>
+
+<audio id="zsong" src="media/audio/song.mp3" loop preload="none"></audio>
 
 <div class="lb" inert role="dialog" aria-modal="true" aria-label="Photo viewer">
   <img alt="">
@@ -382,8 +725,8 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
   <div class="lb-cap"></div>
 </div>
 
-<button class="br-exit" type="button">go back to being employable</button>
-<button class="br-mute" type="button">sound: on</button>
+<button class="br-exit" type="button" data-br-toggle>BACK TO SERIOUS</button>
+<button class="br-mute" type="button">SOUND: ON</button>
 <div class="ovation" aria-hidden="true"></div>
 
 <script>
@@ -391,10 +734,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
   var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function store(k, v) {
-    try {
-      if (v === undefined) return localStorage.getItem(k);
-      localStorage.setItem(k, v);
-    } catch (e) { return null; }
+    try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; }
   }
   function shuffle(a) {
     for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
@@ -409,28 +749,23 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
     var base = src.replace(/\.(jpe?g|png|webp)$/i, '');
     var tries = EXTS.filter(function (e) { return base + e !== src; });
     var i = 0;
-    function next() {
-      if (i < tries.length) img.src = base + tries[i++];
-      else if (onFail) onFail();
-    }
+    function next() { if (i < tries.length) img.src = base + tries[i++]; else if (onFail) onFail(); }
     img.addEventListener('error', next);
     if (img.complete && img.naturalWidth === 0 && src) next();
   }
-  document.querySelectorAll('.shot img').forEach(function (img) {
+  document.querySelectorAll('.shot img, .pol img').forEach(function (img) {
     heal(img, function () {
-      var s = img.closest('.shot');
-      if (s) s.style.display = 'none';
-      if (window.console) console.warn('Photo not found (check the file name on GitHub): ' + img.getAttribute('src'));
+      var box = img.closest('.shot, .pol');
+      if (box) box.style.display = 'none';
+      if (window.console) console.warn('Image not found (check the file name on GitHub): ' + img.getAttribute('src'));
     });
   });
 
   /* ---------- lightbox ---------- */
   (function () {
     var lb = document.querySelector('.lb');
-    var img = lb.querySelector('img');
-    var cap = lb.querySelector('.lb-cap');
-    var prev = lb.querySelector('.lb-prev');
-    var next = lb.querySelector('.lb-next');
+    var img = lb.querySelector('img'), cap = lb.querySelector('.lb-cap');
+    var prev = lb.querySelector('.lb-prev'), next = lb.querySelector('.lb-next');
     var group = [], idx = 0, lastFocus = null, caption = '';
     function show(i) {
       idx = (i + group.length) % group.length;
@@ -446,14 +781,12 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
       prev.style.display = next.style.display = group.length > 1 ? '' : 'none';
       lastFocus = document.activeElement;
       show(group.indexOf(shot));
-      lb.classList.add('open');
-      lb.inert = false;
+      lb.classList.add('open'); lb.inert = false;
       document.body.classList.add('locked');
       lb.querySelector('.lb-close').focus();
     }
     function close() {
-      lb.classList.remove('open');
-      lb.inert = true;
+      lb.classList.remove('open'); lb.inert = true;
       document.body.classList.remove('locked');
       if (lastFocus) lastFocus.focus();
     }
@@ -478,24 +811,21 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
     });
   })();
 
-  /* ---------- tab icon: crop pfp.jpeg into a circle ---------- */
+  /* ---------- tab icon ---------- */
   (function () {
     var img = new Image();
     img.onload = function () {
       var size = 64, c = document.createElement('canvas');
       c.width = c.height = size;
-      var ctx = c.getContext('2d');
-      var side = Math.min(img.width, img.height);
-      ctx.beginPath();
-      ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
-      ctx.clip();
+      var ctx = c.getContext('2d'), side = Math.min(img.width, img.height);
+      ctx.beginPath(); ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2); ctx.clip();
       ctx.drawImage(img, (img.width - side) / 2, (img.height - side) * 0.18, side, side, 0, 0, size, size);
       try { document.getElementById('favicon').href = c.toDataURL('image/png'); } catch (e) {}
     };
     img.src = 'pfp.jpeg';
   })();
 
-  /* ---------- live dev.to posts (textContent only) ---------- */
+  /* ---------- live dev.to posts (serious mode list, textContent only) ---------- */
   (function () {
     var box = document.querySelector('.posts');
     if (!box || !window.fetch) return;
@@ -506,177 +836,157 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
         var frag = document.createDocumentFragment(), n = 0;
         list.forEach(function (p) {
           if (typeof p.url !== 'string' || p.url.indexOf('https://dev.to/') !== 0) return;
-          var li = document.createElement('li');
-          var d = document.createElement('span');
+          var li = document.createElement('li'), d = document.createElement('span'), a = document.createElement('a');
           d.className = 'd';
           var dt = new Date(p.published_at);
-          d.textContent = isNaN(dt.getTime()) ? (p.readable_publish_date || '') :
-            dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-          var a = document.createElement('a');
+          d.textContent = isNaN(dt.getTime()) ? (p.readable_publish_date || '') : dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
           a.href = p.url;
           a.textContent = p.title || 'Untitled';
-          li.append(d, a);
-          frag.append(li);
-          n++;
+          li.append(d, a); frag.append(li); n++;
         });
         if (!n) return;
         box.textContent = '';
         box.append(frag);
       })
-      .catch(function () { /* keep the static list */ });
+      .catch(function () {});
   })();
 
   /* ---------- unserious mode ---------- */
-  // To add a meme: save it in media/memes/ and add its path here.
-  var MEMES = [
-    'media/memes/forgor.jpg', 'media/memes/remebar.jpg', 'media/memes/capybara.jpg',
-    'media/memes/lion-struggling.jpg', 'media/memes/cat-clap.jpg', 'media/memes/cat-ohhh.jpg',
-    'media/memes/rock-on.jpg', 'media/memes/opinions-fly.jpg', 'media/memes/shark.jpg',
-    'media/memes/tweaking.jpg', 'media/memes/lie-to-yourself.jpg', 'media/memes/dog-headphones.jpg'
-  ];
   var BR = { on: false, muted: false, ctx: null };
-  var stickers = [], rafId = null, lastT = 0;
-  var brEls = document.querySelectorAll('[data-br]');
-  var toggles = document.querySelectorAll('[data-br-toggle]');
+  var zine = document.getElementById('zine');
+  var song = document.getElementById('zsong');
+  var radio = document.querySelector('.radio');
+  var playBtn = document.getElementById('z-play');
+  var trackEl = document.querySelector('.track');
   var muteBtn = document.querySelector('.br-mute');
-  var exitBtn = document.querySelector('.br-exit');
   var ovationEl = document.querySelector('.ovation');
+  var playEl = document.querySelector('.play');
+  var chessHome = document.getElementById('chess-home');
+  var zChess = document.getElementById('z-chess');
+  var fontsLoaded = false;
 
   function audio() {
-    if (!BR.ctx) {
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return null;
-      BR.ctx = new AC();
-    }
+    if (!BR.ctx) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null; BR.ctx = new AC(); }
     if (BR.ctx.state === 'suspended') BR.ctx.resume();
     return BR.ctx;
   }
   function tone(type, f0, f1, dur, vol, delay) {
     var ac = audio();
     if (!ac || BR.muted) return;
-    var t = ac.currentTime + (delay || 0);
-    var o = ac.createOscillator(), g = ac.createGain();
+    var t = ac.currentTime + (delay || 0), o = ac.createOscillator(), g = ac.createGain();
     o.type = type;
     o.frequency.setValueAtTime(f0, t);
     o.frequency.exponentialRampToValueAtTime(f1, t + dur);
     g.gain.setValueAtTime(vol, t);
     g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g); g.connect(ac.destination);
-    o.start(t); o.stop(t + dur + 0.02);
+    o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + dur + 0.02);
   }
   function noise(dur, vol) {
     var ac = audio();
     if (!ac || BR.muted) return;
-    var len = Math.floor(ac.sampleRate * dur);
-    var buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0);
+    var len = Math.floor(ac.sampleRate * dur), buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0);
     for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2);
     var s = ac.createBufferSource(), g = ac.createGain();
-    g.gain.value = vol;
-    s.buffer = buf; s.connect(g); g.connect(ac.destination); s.start();
+    g.gain.value = vol; s.buffer = buf; s.connect(g); g.connect(ac.destination); s.start();
   }
   var SFX = {
-    on: function () { tone('square', 200, 1200, 0.4, 0.12); },
-    boing: function () { tone('sine', 180, 720, 0.18, 0.22); },
-    pop: function () { noise(0.35, 0.45); tone('square', 220, 40, 0.3, 0.12); },
-    wrong: function () { tone('sawtooth', 392, 370, 0.28, 0.1); tone('sawtooth', 370, 349, 0.28, 0.1, 0.3); tone('sawtooth', 349, 220, 0.6, 0.1, 0.6); },
-    win: function () { [523, 659, 784, 1047].forEach(function (f, i) { tone('triangle', f, f * 1.001, 0.22, 0.18, i * 0.12); }); }
+    on: function () { tone('square', 200, 1200, 0.4, 0.1); },
+    boing: function () { tone('sine', 180, 720, 0.18, 0.2); },
+    pop: function () { noise(0.35, 0.4); tone('square', 220, 40, 0.3, 0.1); },
+    wrong: function () { tone('sawtooth', 392, 370, 0.28, 0.08); tone('sawtooth', 370, 349, 0.28, 0.08, 0.3); tone('sawtooth', 349, 220, 0.6, 0.08, 0.6); },
+    win: function () { [523, 659, 784, 1047].forEach(function (f, i) { tone('triangle', f, f * 1.001, 0.22, 0.16, i * 0.12); }); }
   };
   function sfx(k) { if (BR.on && SFX[k]) SFX[k](); }
-
-  function place(s) { s.el.style.transform = 'translate(' + s.x.toFixed(1) + 'px,' + s.y.toFixed(1) + 'px) rotate(' + s.r.toFixed(1) + 'deg)'; }
-  function spawn(src) {
-    var size = window.innerWidth < 640 ? 90 : 120 + Math.random() * 40;
-    var wrap = document.createElement('div');
-    wrap.className = 'meme';
-    wrap.style.width = size + 'px';
-    var img = document.createElement('img');
-    img.alt = '';
-    img.draggable = false;
-    var s = {
-      el: wrap, img: img, w: size, h: size,
-      x: Math.random() * Math.max(1, window.innerWidth - size),
-      y: Math.random() * Math.max(1, window.innerHeight - size),
-      vx: (Math.random() < 0.5 ? -1 : 1) * (0.6 + Math.random() * 1.2),
-      vy: (Math.random() < 0.5 ? -1 : 1) * (0.6 + Math.random() * 1.2),
-      r: Math.random() * 20 - 10, vr: (Math.random() - 0.5) * 0.6
-    };
-    img.onload = function () { s.h = wrap.offsetHeight || size; };
-    img.src = src;
-    heal(img, function () { wrap.remove(); stickers = stickers.filter(function (x) { return x !== s; }); });
-    wrap.appendChild(img);
-    wrap.addEventListener('click', function (e) { e.stopPropagation(); explode(s); });
-    document.body.appendChild(wrap);
-    stickers.push(s);
-    place(s);
-  }
-  function explode(s) {
-    if (s.dead) return;
-    s.dead = true;
-    sfx('pop');
-    s.img.classList.add('boom');
-    setTimeout(function () { s.el.remove(); stickers = stickers.filter(function (x) { return x !== s; }); }, 450);
-    setTimeout(function () { if (BR.on) spawn(pick(MEMES)); }, 1200);
-  }
-  function loop(t) {
-    rafId = requestAnimationFrame(loop);
-    var dt = lastT ? Math.min((t - lastT) / 16.67, 3) : 1;
-    lastT = t;
-    var W = window.innerWidth, H = window.innerHeight;
-    stickers.forEach(function (s) {
-      if (s.dead) return;
-      s.x += s.vx * dt; s.y += s.vy * dt; s.r += s.vr * dt;
-      if (s.x < 0) { s.x = 0; s.vx = Math.abs(s.vx); }
-      if (s.x + s.w > W) { s.x = W - s.w; s.vx = -Math.abs(s.vx); }
-      if (s.y < 0) { s.y = 0; s.vy = Math.abs(s.vy); }
-      if (s.y + s.h > H) { s.y = H - s.h; s.vy = -Math.abs(s.vy); }
-      place(s);
-    });
-  }
-  function ovation() {
+  function ovation(text) {
     if (!BR.on) return;
-    ovationEl.textContent = pick(['W', 'GOATED', 'HIM']);
+    ovationEl.textContent = text || pick(['W', 'GOATED', 'HIM']);
     ovationEl.classList.remove('show');
     void ovationEl.offsetWidth;
     ovationEl.classList.add('show');
-    spawn(pick(MEMES));
   }
+
+  function loadZineFonts() {
+    if (fontsLoaded) return;
+    fontsLoaded = true;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = 'https://fonts.googleapis.com/css2?family=Bangers&family=Courier+Prime:wght@400;700&family=Permanent+Marker&family=UnifrakturMaguntia&display=swap';
+    document.head.appendChild(l);
+  }
+  function ransom() {
+    document.querySelectorAll('[data-ransom]').forEach(function (el) {
+      if (el.dataset.done) return;
+      el.dataset.done = '1';
+      var text = el.textContent.trim();
+      el.setAttribute('aria-label', text);
+      el.textContent = '';
+      var F = ['"Bangers", Impact, sans-serif', '"Permanent Marker", cursive', '"Courier Prime", monospace', '"UnifrakturMaguntia", serif', 'Georgia, serif', '"Arial Black", sans-serif'];
+      var B = ['#ffe14d', '#ff4fa3', '#3fd8ff', '#9dff57', '#ff8a3d', '#ffffff', '#141414'];
+      text.split('').forEach(function (ch) {
+        if (ch === ' ') { el.append(document.createElement('br')); return; }
+        var s = document.createElement('span'), bg = pick(B);
+        s.textContent = ch;
+        s.setAttribute('aria-hidden', 'true');
+        s.style.setProperty('--f', pick(F));
+        s.style.setProperty('--b', bg);
+        s.style.setProperty('--c', bg === '#141414' ? '#ffffff' : '#141414');
+        s.style.setProperty('--rr', (Math.random() * 16 - 8).toFixed(1) + 'deg');
+        el.append(s);
+      });
+    });
+  }
+
+  function setPlaying(on) {
+    radio.classList.toggle('playing', on);
+    playBtn.textContent = on ? 'PAUSE' : 'PLAY';
+  }
+  function playSong() {
+    song.volume = 0.45;
+    song.muted = BR.muted;
+    var p = song.play();
+    setPlaying(true);
+    if (p && p.catch) p.catch(function () { setPlaying(false); });
+  }
+  song.addEventListener('error', function () {
+    setPlaying(false);
+    trackEl.textContent = 'No song yet. Add media/audio/song.mp3';
+  });
+  playBtn.addEventListener('click', function () {
+    if (song.paused) playSong(); else { song.pause(); setPlaying(false); }
+  });
+
   function setBrainrot(on) {
     if (on === BR.on) return;
     BR.on = on;
-    if (on && !document.getElementById('comic-font')) {
-      var l = document.createElement('link');
-      l.id = 'comic-font';
-      l.rel = 'stylesheet';
-      l.href = 'https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap';
-      document.head.appendChild(l);
-    }
+    if (on) { loadZineFonts(); ransom(); }
     document.body.classList.toggle('brainrot', on);
-    brEls.forEach(function (el) {
-      if (on) { el.dataset.orig = el.innerHTML; el.textContent = el.getAttribute('data-br'); }
-      else if (el.dataset.orig !== undefined) { el.innerHTML = el.dataset.orig; }
-    });
-    toggles.forEach(function (t) { t.textContent = on ? 'Serious mode' : 'Unserious mode'; });
-    if (on) {
-      sfx('on');
-      shuffle(MEMES.slice()).slice(0, window.innerWidth < 640 ? 3 : 5).forEach(spawn);
-      if (!REDUCE) { lastT = 0; rafId = requestAnimationFrame(loop); }
-    } else {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = null;
-      stickers.forEach(function (s) { s.el.remove(); });
-      stickers = [];
-    }
+    zine.hidden = !on;
+    (on ? zChess : chessHome).appendChild(playEl);
+    window.scrollTo(0, 0);
+    if (on) { sfx('on'); playSong(); }
+    else { song.pause(); setPlaying(false); }
   }
-  toggles.forEach(function (t) { t.addEventListener('click', function () { setBrainrot(!BR.on); }); });
-  exitBtn.addEventListener('click', function () { setBrainrot(false); });
+  document.querySelectorAll('[data-br-toggle]').forEach(function (t) {
+    t.addEventListener('click', function () { setBrainrot(!BR.on); });
+  });
   muteBtn.addEventListener('click', function () {
     BR.muted = !BR.muted;
-    muteBtn.textContent = BR.muted ? 'sound: off' : 'sound: on';
+    song.muted = BR.muted;
+    muteBtn.textContent = BR.muted ? 'SOUND: OFF' : 'SOUND: ON';
+  });
+  document.querySelectorAll('#zine .pol').forEach(function (p) {
+    p.addEventListener('click', function () {
+      p.classList.remove('wiggle');
+      void p.offsetWidth;
+      p.classList.add('wiggle');
+      if (p.querySelector('[data-capy]')) { sfx('pop'); ovation('BRO. HE IS WORKING.'); }
+      else sfx('boing');
+    });
   });
   document.addEventListener('click', function (e) {
     if (!BR.on) return;
     var hit = e.target.closest('a, button');
-    if (hit && !hit.closest('.meme') && !hit.classList.contains('sq')) sfx('boing');
+    if (hit && !hit.classList.contains('sq') && hit.id !== 'z-play' && !hit.closest('.pol')) sfx('boing');
   }, true);
 
   /* ---------- chess: random mate in two ---------- */
@@ -685,9 +995,6 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
     if (!boardEl) return;
     var statusEl = document.getElementById('chess-status');
     var solvedEl = document.getElementById('chess-solved');
-
-    // 6 base positions (white to move, forced mate in two). Each visit may mirror
-    // and/or swap colours, giving 24 puzzles. Any correct mating line is accepted.
     var BANK = [
       { fen: '2r3k1/5ppp/8/8/8/8/3R1PPP/3R2K1 w - - 0 1', key: 'd2d8' },
       { fen: '5r1k/6pp/7N/q7/2Q5/8/5PPP/6K1 w - - 0 1',   key: 'c4g8' },
@@ -702,7 +1009,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
       good: ['ok ok, i see you', 'lowkey cooking rn', 'the king is getting nervous'],
       wrong: ['skill issue detected', 'nah bro what was that', 'the king said no', 'that move was not it, chief'],
       notMate: ['so close yet so cooked', 'almost. emphasis on almost', 'the king is still breathing'],
-      win: ['CHECKMATE. absolute cinema.', 'W. you are him.', 'certified chess goblin']
+      win: ['CHECKMATE. ABSOLUTE CINEMA.', 'W. YOU ARE HIM.', 'CERTIFIED CHESS GOBLIN']
     };
     var Chess = null, game = null, startFen = '', solver = 'w', key = null;
     var phase = 0, sel = null, last = null, hintSq = null, busy = true, squares = {};
@@ -722,9 +1029,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
       var turn = parts[1];
       if (t & 1) rows = rows.map(function (r) { return r.split('').reverse().join(''); });
       if (t & 2) {
-        rows = rows.reverse().map(function (r) {
-          return r.replace(/[a-zA-Z]/g, function (ch) { return ch === ch.toUpperCase() ? ch.toLowerCase() : ch.toUpperCase(); });
-        });
+        rows = rows.reverse().map(function (r) { return r.replace(/[a-zA-Z]/g, function (ch) { return ch === ch.toUpperCase() ? ch.toLowerCase() : ch.toUpperCase(); }); });
         turn = turn === 'w' ? 'b' : 'w';
       }
       return rows.map(function (r) { return r.replace(/\.+/g, function (m) { return String(m.length); }); }).join('/') + ' ' + turn + ' - - 0 1';
@@ -738,12 +1043,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
     function asObj(m) { var o = { from: m.from, to: m.to }; if (m.promotion) o.promotion = m.promotion; return o; }
     function hasMateIn1(g) {
       var ms = g.moves({ verbose: true });
-      for (var i = 0; i < ms.length; i++) {
-        g.move(asObj(ms[i]));
-        var mate = g.isCheckmate();
-        g.undo();
-        if (mate) return true;
-      }
+      for (var i = 0; i < ms.length; i++) { g.move(asObj(ms[i])); var mate = g.isCheckmate(); g.undo(); if (mate) return true; }
       return false;
     }
     function judgeFirst(g, mv) {
@@ -775,15 +1075,13 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
       }
       return null;
     }
-
     function build(flip) {
       boardEl.textContent = '';
       squares = {};
       var files = 'abcdefgh';
       for (var row = 0; row < 8; row++) {
         for (var col = 0; col < 8; col++) {
-          var f = flip ? 7 - col : col, r = flip ? row + 1 : 8 - row;
-          var sq = files.charAt(f) + r;
+          var f = flip ? 7 - col : col, r = flip ? row + 1 : 8 - row, sq = files.charAt(f) + r;
           var b = document.createElement('button');
           b.type = 'button';
           b.className = 'sq' + ((f + r) % 2 === 0 ? ' l' : '');
@@ -803,9 +1101,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
       var tset = {};
       if (sel) game.moves({ square: sel, verbose: true }).forEach(function (m) { tset[m.to] = m.captured ? 'cap' : 'dot'; });
       var checkSq = null;
-      if (game.inCheck()) {
-        game.board().forEach(function (rank) { rank.forEach(function (p) { if (p && p.type === 'k' && p.color === game.turn()) checkSq = p.square; }); });
-      }
+      if (game.inCheck()) game.board().forEach(function (rank) { rank.forEach(function (p) { if (p && p.type === 'k' && p.color === game.turn()) checkSq = p.square; }); });
       Object.keys(squares).forEach(function (sq) {
         var b = squares[sq], p = game.get(sq), pc = b.firstChild;
         pc.textContent = p ? GLYPH[p.type] + '\uFE0E' : '';
@@ -866,10 +1162,7 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
       if (busy || !game || (phase !== 1 && phase !== 2)) return;
       if (sel) {
         var hits = game.moves({ square: sel, verbose: true }).filter(function (m) { return m.to === sq; });
-        if (hits.length) {
-          var mv = hits.filter(function (m) { return m.promotion === 'q'; })[0] || hits[0];
-          sel = null; play(mv); return;
-        }
+        if (hits.length) { var mv = hits.filter(function (m) { return m.promotion === 'q'; })[0] || hits[0]; sel = null; play(mv); return; }
       }
       var p = game.get(sq);
       sel = (p && p.color === solver && sq !== sel) ? sq : null;
@@ -901,7 +1194,6 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
         setStatus('No puzzle could be loaded. Refresh to try again.', 'bad');
       })();
     }
-
     document.getElementById('chess-hint').addEventListener('click', function () {
       if (busy || !game) return;
       if (phase === 1 && key) {
@@ -909,19 +1201,13 @@ body.brainrot h2{ animation:rainbowc 4s linear infinite; }
         setStatus(BR.on ? 'psst. that piece. trust.' : 'Hint: start with the highlighted piece.');
       } else if (phase === 2) {
         var ms = game.moves({ verbose: true });
-        for (var i = 0; i < ms.length; i++) {
-          game.move(asObj(ms[i]));
-          var mate = game.isCheckmate();
-          game.undo();
-          if (mate) { hintSq = ms[i].from; break; }
-        }
+        for (var i = 0; i < ms.length; i++) { game.move(asObj(ms[i])); var mate = game.isCheckmate(); game.undo(); if (mate) { hintSq = ms[i].from; break; } }
         setStatus(BR.on ? 'this piece ends it. go.' : 'Hint: the highlighted piece delivers mate.');
       }
       render();
     });
     document.getElementById('chess-reset').addEventListener('click', function () { if (busy || !game) return; reset(); setStatus(startText()); });
     document.getElementById('chess-new').addEventListener('click', function () { if (busy || !Chess) return; newPuzzle(); });
-
     import('https://cdn.jsdelivr.net/npm/chess.js@1/+esm')
       .then(function (mod) {
         Chess = mod.Chess || (mod.default && mod.default.Chess);
